@@ -1,0 +1,21 @@
+
+Trello Board:
+===========================================
+
+https://trello.com/b/qngsumIs/dotnetproject
+
+Scrum:
+===========================================
+dotNetProject/Scrumtxt.txt
+
+GitHub:
+===========================================
+https://github.com/loritta/dotnetProject2018
+
+!!!!!!!!!!!!!!!!!!!!!!!!Attention!!!!!!!!!!!!!!!!!!!!!!!
+========================================================
+Before working on a file make a branch... 
+Let know your partner on which file you work...
+Pull first from master..
+Push as often as possible and merge..
+If any conflicts, they has to be solved right away..
