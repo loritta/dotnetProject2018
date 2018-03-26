@@ -19,3 +19,16 @@ Let know your partner on which file you work...
 Pull first from master..
 Push as often as possible and merge..
 If any conflicts, they has to be solved right away..
+
+LINKS WITH TECHNOLOGIES OR SIMILAR PROJECTS
+===========================================
+https://www.telerik.com/forums/build-custom-class-designer-with-diagram-editor 
+https://www.telerik.com/products/wpf/overview.aspx
+
+https://www.mindfusion.eu/onlinehelp/wpfdiagram/index.htm?T_MindFusion_Diagramming_Wpf_Ruler_Ruler.htm
+
+https://www.youtube.com/watch?v=bEGNep46h90
+
+https://stackoverflow.com/questions/6254422/convert-svg-to-png-or-jpeg
+
+https://github.com/ElinamLLC/SharpVectors/tree/master/Applications/SharpVectorSquiggle

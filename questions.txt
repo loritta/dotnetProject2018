@@ -1,0 +1,20 @@
+#region Constructors and Destructor
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            _titleBase = this.Title;
+
+            this.Loaded  += new RoutedEventHandler(OnWindowLoaded);
+            //this.Unloaded += new RoutedEventHandler(OnWindowUnloaded);
+            this.Closing += new CancelEventHandler(OnWindowClosing);  
+
+            _fileReader = new FileSvgReader();
+            _fileReader.SaveXaml = false;
+            _fileReader.SaveZaml = false;
+        }
+
+        #endregion
+
+What are those #tags???
