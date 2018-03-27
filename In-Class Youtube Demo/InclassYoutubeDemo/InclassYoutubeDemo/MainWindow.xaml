@@ -1,0 +1,29 @@
+﻿<Window x:Class="InclassYoutubeDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InclassYoutubeDemo"
+        xmlns:diag="http://mindfusion.eu/diagramming/wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <diag:Ruler ShowIcon="False" Grid.RowSpan="2">
+            <diag:Diagram x:Name="flowchart" AllowDrop="True" DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}"></diag:Diagram>
+        </diag:Ruler>
+
+        <diag:Overview x:Name="overview" Grid.Column="1" Grid.Row="1" Document="{Binding ElementName=flowchart}"></diag:Overview>
+
+        <diag:NodeListView x:Name="shapeList" Grid.Column="1"></diag:NodeListView>
+    </Grid>
+</Window>
