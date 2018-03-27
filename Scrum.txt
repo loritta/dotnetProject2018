@@ -15,10 +15,18 @@ Day 1:
 2018/03/26 Chris
 1. Done since last scrum:
 
+Probably found the main technology we will be using (mindfusion)
+
+
 2. Plan until next Scrum:
+
+Research mindfusion library, learn how it works more
+Start designing the GUI - Work on my part
 
 3. Need assistance / figure things out:
 
+Designing GUI
+Different perspective on mindfusion library usage
 
 2018/03/26 Larisa
 1. Done since last scrum:
