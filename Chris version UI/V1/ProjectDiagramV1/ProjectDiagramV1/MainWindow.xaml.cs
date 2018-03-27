@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MindFusion.Diagramming.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace ProjectDiagramV1
         public MainWindow()
         {
             InitializeComponent();
+
+            shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
+                shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
         }
     }
 }
