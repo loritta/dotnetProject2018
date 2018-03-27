@@ -22,8 +22,10 @@ Day 1:
 
 2018/03/26 Larisa
 1. Done since last scrum:
+Just started. Gathering ideas on the projects to do.
 
 2. Plan until next Scrum:
+Creat git, create trello, make the scrum layout and create a project proposal
 
 3. Need assistance / figure things out:
 
@@ -43,10 +45,13 @@ Day 2:
 
 2018/03/27 Larisa
 1. Done since last scrum:
+Project proposal, git, trello, scrum
 
 2. Plan until next Scrum:
+Start working on the layout and the separtae fitures.
 
 3. Need assistance / figure things out:
+Print the project proposal
 
 ================================================
 ----------------
