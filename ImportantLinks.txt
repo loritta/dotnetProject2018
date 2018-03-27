@@ -32,3 +32,7 @@ https://www.youtube.com/watch?v=bEGNep46h90
 https://stackoverflow.com/questions/6254422/convert-svg-to-png-or-jpeg
 
 https://github.com/ElinamLLC/SharpVectors/tree/master/Applications/SharpVectorSquiggle
+
+GridView for list
+============================================
+https://stackoverflow.com/questions/20573063/creating-icon-view-mode-for-listview-wpf
