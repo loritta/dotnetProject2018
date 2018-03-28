@@ -21,34 +21,13 @@ namespace ProjectDiagramV1
     /// </summary>
     public partial class MainWindow : Window
     {
-        
         public MainWindow()
         {
             InitializeComponent();
 
-            int index = 0;
-            for (int i = 0; i < 50; i++)
-            {
-                ShapeNode node = new ShapeNode();
-                node.Bounds = new Rect(0, 0, 30, 30);
-                node.Shape = MindFusion.Diagramming.Wpf.Shape.Shapes[i];
-                node.Margin = new Thickness(2, 2, 5, 2);
-
-                NodeListView.SetLabel(node, MindFusion.Diagramming.Wpf.Shape.Shapes[i].Id);
-                shapeList.Items.Add(node);
-                index += 1;
-               
-            }
-
-            overview.TrackingRectPen = new Pen(Brushes.Red, 3);
+            shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
+                shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
         }
-
-        private void nodeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ShapeNode node = (sender as NodeListView).SelectedItem as ShapeNode;
-            diagram.DefaultShape = node.Shape;
-        }
-
         private void diagram_Drop(object sender, DragEventArgs e)
         {
             ShapeNode node = diagram.Items[diagram.Items.Count - 1] as ShapeNode;
