@@ -76,10 +76,13 @@ Day 3:
 
 2018/03/28 Larisa
 1. Done since last scrum:
+Researched the ways of creating a context menue as well as connecting all the functions as undo, redo, ocpy, paste.
 
 2. Plan until next Scrum:
+Working on the toolbar inplementation
 
 3. Need assistance / figure things out:
+For now in everything as I have a total haos in the understanding how to put it all together.
 ================================================
 ----------------
 Day 4:
