@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InclassYoutubeDemo
+namespace ProjectDiagramV1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -25,11 +25,13 @@ namespace InclassYoutubeDemo
         {
             InitializeComponent();
 
-            // add individual shape to list
-            //shapeList.Items.Add(new ShapeNode { Shape = Shapes.RoundRect, Bounds = new Rect(0, 0, 40, 40) });
-
             shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
-                shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 5, 5) });
+                shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
+        }
+        private void diagram_Drop(object sender, DragEventArgs e)
+        {
+            ShapeNode node = diagram.Items[diagram.Items.Count - 1] as ShapeNode;
+            node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
         }
     }
 }
