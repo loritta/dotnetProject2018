@@ -36,3 +36,7 @@ https://github.com/ElinamLLC/SharpVectors/tree/master/Applications/SharpVectorSq
 GridView for list
 ============================================
 https://stackoverflow.com/questions/20573063/creating-icon-view-mode-for-listview-wpf
+
+Using solutions/classes from other projects
+=================================================
+https://stackoverflow.com/questions/3554658/how-to-use-a-class-from-one-c-sharp-project-with-another-c-sharp-project
