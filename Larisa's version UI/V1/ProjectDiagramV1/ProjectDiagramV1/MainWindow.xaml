@@ -75,8 +75,10 @@
                 DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
 
             </mfd:Diagram>
+           
 
         </diag:Ruler>
+        
 
         <mfd:Overview x:Name="overview" Document="{Binding ElementName=diagram}" DimBrush="Transparent" Grid.Column="3" Grid.Row="3" />
 
