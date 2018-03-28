@@ -10,7 +10,8 @@
        
         xmlns:wpfx="http://mindfusion.eu/common/wpf"
         mc:Ignorable="d"
-        Title="VGraph" Height="500" Width="525">
+        Title="VGraph" Height="500" Width="525"
+        Loaded="OnWindowLoaded">
 
 
     <Grid>
@@ -64,18 +65,17 @@
         <TextBlock TextWrapping="WrapWithOverflow" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                    Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"></TextBlock>
 
+            <diag:DiagramView x:Name="diagramView" Grid.Column="1" Grid.Row="2">
+            <diag:Diagram x:Name="diagram"
+                    AllowDrop="True"
+                    AllowInplaceEdit="True"
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Left" 
+                    Drop="diagram_Drop"
+                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
 
-        <diag:Ruler ShowIcon="False" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
-            <mfd:Diagram x:Name="diagram"
-                AllowDrop="True" 
-                VerticalAlignment="Top" 
-                HorizontalAlignment="Left" 
-                Drop="diagram_Drop"
-                DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
-
-            </mfd:Diagram>
-
-        </diag:Ruler>
+            </diag:Diagram>
+        </diag:DiagramView>
 
         <mfd:Overview x:Name="overview" Document="{Binding ElementName=diagram}" DimBrush="Transparent" Grid.Column="3" Grid.Row="3" />
 
