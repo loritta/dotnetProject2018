@@ -29,10 +29,7 @@ namespace ProjectDiagramV1
             // load the built in nodes list
             //shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
             //  shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
-
-            // Add a specific node to the list           
-            shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
-
+          
 
             // testing below
             diagram.LinkHeadShape = ArrowHeads.Triangle;
@@ -58,26 +55,32 @@ namespace ProjectDiagramV1
         {
             if (nodeShape.Shape.Equals(Shapes.DividedProcess))
             {
-                MessageBox.Show("Success?");    // test
 
                 var node1 = new CustomDatabaseDiag
                 {
                     Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 160),
-                    //ClassName = "Mike Powell",
-                    //MemberName = "Member 1",
-                    Index = 0
+                    Index = 0 // might not need this
                 };
                 diagram.Nodes.Add(node1);
             }
             else
             {
-                MessageBox.Show("FML");
+                MessageBox.Show("Invalid Shape Selected");
             }
             
         }
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
+            // Add a specific node to the list           
+            //shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
+
+
+            // using a method in LoadDiagramShapes to load shapes
+            LoadDiagramShapes.LoadUmlNodes(shapeList);
+
+
+
             // Create the hierarchy
             //var node1 = new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) };
             //var node1 = new ContainerNode { Shape = SimpleShape.Rectangle, Bounds = new Rect(0, 0, 200, 200) };
@@ -116,6 +119,7 @@ namespace ProjectDiagramV1
         {
 
         }
+
     }
 
 
