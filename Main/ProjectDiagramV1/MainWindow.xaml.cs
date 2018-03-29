@@ -30,8 +30,9 @@ namespace ProjectDiagramV1
             //shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
             //  shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
 
-            // Add a specific node to the list
+            // Add a specific node to the list           
             shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
+
 
             // testing below
             diagram.LinkHeadShape = ArrowHeads.Triangle;
@@ -46,17 +47,42 @@ namespace ProjectDiagramV1
         }
         private void diagram_Drop(object sender, DragEventArgs e)
         {
-           
             ShapeNode node = diagram.Items[diagram.Items.Count - 1] as ShapeNode;
             node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
 
+            diagram.Items.Remove(node); // dont add the default shape
+            DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
         }
+        // this checks the dragged node type and creates the right custom node for it...
+        private void DiagramNodeCreated(ShapeNode nodeShape)
+        {
+            if (nodeShape.Shape.Equals(Shapes.DividedProcess))
+            {
+                MessageBox.Show("Success?");    // test
+
+                var node1 = new CustomDatabaseDiag
+                {
+                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 160),
+                    //ClassName = "Mike Powell",
+                    //MemberName = "Member 1",
+                    Index = 0
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else
+            {
+                MessageBox.Show("FML");
+            }
+            
+        }
+
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             // Create the hierarchy
             //var node1 = new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) };
             //var node1 = new ContainerNode { Shape = SimpleShape.Rectangle, Bounds = new Rect(0, 0, 200, 200) };
 
+            /* test stuff below
             var node1 = new CustomDatabaseDiag
             {
                 Bounds = new Rect(0, 0, 300, 160),
@@ -75,7 +101,7 @@ namespace ProjectDiagramV1
                 Index = 1
             };
             diagram.Nodes.Add(node2);
-
+            */
             TreeLayout layout = new TreeLayout();
             layout.Type = TreeLayoutType.Centered;
             layout.LinkStyle = TreeLayoutLinkType.Cascading3;
@@ -83,6 +109,11 @@ namespace ProjectDiagramV1
             layout.KeepRootPosition = false;
             layout.LevelDistance = 40;
             layout.Arrange(diagram);
+
+        }
+
+        private void diagramView_Drop(object sender, DragEventArgs e)
+        {
 
         }
     }

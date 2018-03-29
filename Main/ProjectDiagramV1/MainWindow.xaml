@@ -65,13 +65,14 @@
         <TextBlock TextWrapping="WrapWithOverflow" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                    Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"></TextBlock>
 
-            <diag:DiagramView x:Name="diagramView" Grid.Column="1" Grid.Row="2">
+            <diag:DiagramView x:Name="diagramView" Grid.Column="1" Grid.Row="2" >
             <diag:Diagram x:Name="diagram"
                     AllowDrop="True"
                     AllowInplaceEdit="True"
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left" 
                     Drop="diagram_Drop"
+                    
                     DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
 
             </diag:Diagram>

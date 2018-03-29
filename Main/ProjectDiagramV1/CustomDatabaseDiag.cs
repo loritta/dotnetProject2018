@@ -21,8 +21,6 @@ namespace ProjectDiagramV1
         private const string MemberNamePlaceholder = "<enter member name>";
         private const string TextPlaceholder = "<enter description>";
         
-        //test
-        private string gridName;
 
         static CustomDatabaseDiag()
         {
@@ -133,7 +131,7 @@ namespace ProjectDiagramV1
             }
         }     
         // properties
-
+        // not sure if this is needed
         public int Index
         {
             get { return Images.IndexOf(Image); }
