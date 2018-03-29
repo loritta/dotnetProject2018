@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GraphApp"
+        xmlns:s="clr-namespace:GraphApp"
+        
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Graph App"  Height="850" Width="1000" >
@@ -14,7 +15,7 @@
                     <Image Source="Resources/Images/Paste.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Select All" Command="{x:Static s:DesignerCanvas.SelectAll}"/>
+            <MenuItem Header="Select All" Command="s:DesignerCanvas.SelectAll"/>
         </ContextMenu>
     </Window.Resources>
 
