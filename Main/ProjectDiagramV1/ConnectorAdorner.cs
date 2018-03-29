@@ -4,8 +4,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
+using MindFusion.Diagramming.Wpf;
 
-namespace DiagramDesigner
+namespace ProjectDiagramV1
 {
     public class ConnectorAdorner : Adorner
     {
@@ -66,7 +67,7 @@ namespace DiagramDesigner
 
                 Canvas.SetZIndex(newConnection, designerCanvas.Children.Count);
                 this.designerCanvas.Children.Add(newConnection);
-                
+
             }
             if (HitDesignerItem != null)
             {
@@ -119,7 +120,7 @@ namespace DiagramDesigner
                 targetOrientation = ConnectorOrientation.None;
 
             List<Point> pathPoints = PathFinder.GetConnectionLine(sourceConnector.GetInfo(), position, targetOrientation);
-               
+
             if (pathPoints.Count > 0)
             {
                 PathFigure figure = new PathFigure();
