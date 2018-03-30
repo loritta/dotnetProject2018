@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Test2.Resources">
+                    xmlns:local="clr-namespace:Test2.Resources"
+                     xmlns:mfd="clr-namespace:MindFusion.Diagramming.Wpf;assembly=MindFusion.Diagramming.Wpf">
 
    <ResourceDictionary.MergedDictionaries>
         <!--<ResourceDictionary Source="Styles/Shared.xaml"/>-->
@@ -363,6 +364,16 @@
                     </Button>
                 </StackPanel>
             </Grid>
+        </GroupBox>
+        <!-- Overview-->
+        <GroupBox Header="Overview" Style="{StaticResource ToolbarGroup}" Margin="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <mfd:Overview x:Name="overview" Document="{Binding ElementName=diagram}" DimBrush="Transparent" Width="auto"/>
+            </Grid>
+            
         </GroupBox>
     </ToolBar>
 </ResourceDictionary>

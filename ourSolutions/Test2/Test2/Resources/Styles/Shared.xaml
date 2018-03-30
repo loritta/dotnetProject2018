@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Test2.Resources.Styles">
     <!-- Toolbar Brushes -->
-    <SolidColorBrush x:Key="ToolbarBorderBrush" Color="#ffc5d2df"/>
-    <SolidColorBrush x:Key="ToolbarDarkBorderBrush" Color="#ffc1d9f1"/>
-    <SolidColorBrush x:Key="ToolbarTextBrush" Color="#ff15428b"/>
-    <SolidColorBrush x:Key="ToolbarGroupHeaderBrush" Color="#200077EF"/>
+    <SolidColorBrush x:Key="ToolbarBorderBrush" Color="#ffb3f9db"/>
+    <SolidColorBrush x:Key="ToolbarDarkBorderBrush" Color="#ff7085e2"/>
+    <SolidColorBrush x:Key="ToolbarTextBrush" Color="#ff011322"/>
+    <SolidColorBrush x:Key="ToolbarGroupHeaderBrush" Color="#203c8571"/>
 
     <LinearGradientBrush x:Key="ToolbarBrush" ColorInterpolationMode="ScRgbLinearInterpolation" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#D7E3F2" Offset="0.1"/>
