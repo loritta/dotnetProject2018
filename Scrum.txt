@@ -112,8 +112,12 @@ Day 5:
 2018/03/30 Chris
 1. Done since last scrum:
 
+
 2. Plan until next Scrum:
 
+-Customize the event "NodeDoubleClicked" event for the diagram
+(so that you edit the text wherever you clicked, not the default text
+ 
 3. Need assistance / figure things out:
 
 

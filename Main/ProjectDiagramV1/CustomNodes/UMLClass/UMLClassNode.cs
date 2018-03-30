@@ -6,54 +6,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace ProjectDiagramV1
 {
-    public class CustomDatabaseDiag : TemplatedNode
+    public class UMLClassNode : TemplatedNode
     {
-        private static List<ImageSource> Images;
         private static List<Brush> Fills;
-        private static List<string> Titles;
 
         private const string ClassNamePlaceholder = "<class name>";
         private const string MemberNamePlaceholder = "<enter member name>";
         private const string TextPlaceholder = "<enter description>";
-        
 
-        static CustomDatabaseDiag()
+
+        static UMLClassNode()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(CustomDatabaseDiag), new FrameworkPropertyMetadata(typeof(CustomDatabaseDiag)));
+                typeof(UMLClassNode), new FrameworkPropertyMetadata(typeof(UMLClassNode)));
 
-            // test
-            var myResourceDictionary = new ResourceDictionary();
-            myResourceDictionary.Source = new Uri("Themes/CustomDiagram.xaml", UriKind.RelativeOrAbsolute);
-            
-
-            Images = new List<ImageSource>(new ImageSource[]
-            {
-                new BitmapImage(new Uri("Images/011.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/012.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/019.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/020.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/026.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/051.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/057.png", UriKind.Relative)),
-                new BitmapImage(new Uri("Images/058.png", UriKind.Relative)),
-            });
-            Titles = new List<string>(new string[]
-            {
-                "Support",
-                "Public Relations",
-                "CEO",
-                "Delivery",
-                "Research",
-                "Management",
-                "Development",
-                "Consulting",
-            });
             Fills = new List<Brush>(new Brush[]
             {
                 new LinearGradientBrush(Colors.White, Colors.PaleGoldenrod, new Point(0, 0), new Point(0, 1)),
@@ -66,28 +38,27 @@ namespace ProjectDiagramV1
                 new LinearGradientBrush(Colors.White, Colors.Pink, new Point(0, 0), new Point(0, 1)),
             });
         }
-        public CustomDatabaseDiag()
+        public UMLClassNode()
         {
             Init();
         }
 
-        public CustomDatabaseDiag(Diagram parent)
-			: base(parent)
-		{
+        public UMLClassNode(Diagram parent)
+            : base(parent)
+        {
             Init();
         }
 
         void Init()
         {
+            // event when you add a new member via button
             AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
-
+            // event for when you "drag" a member node over a class node
+            //AddHandler(Ruler., new DragEventHandler(OnDragOver));
             ClassName = ClassNamePlaceholder;
-            //MemberName = MemberNamePlaceholder;
             Text = TextPlaceholder;
             Stroke = Brushes.Gray;
             StrokeThickness = 5;
-            
-            Index = 0;
 
             HandlesStyle = HandlesStyle.HatchHandles3;
         }
@@ -97,7 +68,7 @@ namespace ProjectDiagramV1
         {
             Button button = e.OriginalSource as Button;
 
-            CustomDatabaseDiag diag = sender as CustomDatabaseDiag;
+            UMLClassNode diag = sender as UMLClassNode;
 
             Border buttonFirstParent = button.Parent as Border;
             Grid grid = buttonFirstParent.Parent as Grid;
@@ -112,7 +83,7 @@ namespace ProjectDiagramV1
                     else
                     {
                         // add a row to the node's grid, set focus on the textbox of the new row...
-                        
+
                         var rowDefinition = new RowDefinition();
 
                         rowDefinition.Height = GridLength.Auto;
@@ -129,27 +100,10 @@ namespace ProjectDiagramV1
                     }
                     break;
             }
-        }     
-        // properties
-        // not sure if this is needed
-        public int Index
-        {
-            get { return Images.IndexOf(Image); }
-            set
-            {
-                if (value != -1)
-                {
-                    Image = Images[value];
-                    Brush = Fills[value];
-                }
-                else
-                {
-                    Image = null;
-                }
-
-                InvalidateVisual();
-            }
         }
+        // when a member is dropped over a class
+
+        // properties
 
         public string MemberName
         {
@@ -158,7 +112,7 @@ namespace ProjectDiagramV1
         }
 
         public static readonly DependencyProperty MemberNameProperty = DependencyProperty.Register(
-            "MemberName", typeof(string), typeof(CustomDatabaseDiag), new PropertyMetadata(""));
+            "MemberName", typeof(string), typeof(UMLClassNode), new PropertyMetadata(""));
 
         public string ClassName
         {
@@ -166,16 +120,12 @@ namespace ProjectDiagramV1
             set { SetValue(ClassNameProperty, value); }
         }
         public static readonly DependencyProperty ClassNameProperty = DependencyProperty.Register(
-            "ClassName", typeof(string), typeof(CustomDatabaseDiag), new PropertyMetadata(""));
+            "ClassName", typeof(string), typeof(UMLClassNode), new PropertyMetadata(""));
 
-        public ImageSource Image
+        void OnDragOver(object sender, DragEventArgs e)
         {
-            get { return (ImageSource)GetValue(ImageProperty); }
-            set { SetValue(ImageProperty, value); }
+            
+            MessageBox.Show(e.ToString());
         }
-        public static readonly DependencyProperty ImageProperty = DependencyProperty.Register(
-            "Image", typeof(ImageSource), typeof(CustomDatabaseDiag), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
-
-
     }
 }

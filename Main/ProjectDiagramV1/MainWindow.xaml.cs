@@ -30,9 +30,6 @@ namespace ProjectDiagramV1
             //shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
             //  shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
 
-            // Add a specific node to the list           
-            shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
-
 
             // testing below
             diagram.LinkHeadShape = ArrowHeads.Triangle;
@@ -58,14 +55,27 @@ namespace ProjectDiagramV1
         {
             if (nodeShape.Shape.Equals(Shapes.DividedProcess))
             {
-                MessageBox.Show("Success?");    // test
-
-                var node1 = new CustomDatabaseDiag
+                var node1 = new UMLClassNode
                 {
                     Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 160),
-                    //ClassName = "Mike Powell",
-                    //MemberName = "Member 1",
-                    Index = 0
+
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else if (nodeShape.Shape.Equals(Shapes.DividedEvent))
+            {
+                var node1 = new CrowsFootEntity
+                {
+                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 160),
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else if (nodeShape.Shape.Equals(Shapes.Rectangle))
+            {
+                var node1 = new UMLMember
+                {
+                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 100),
+
                 };
                 diagram.Nodes.Add(node1);
             }
@@ -78,22 +88,18 @@ namespace ProjectDiagramV1
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            // Create the hierarchy
-            //var node1 = new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) };
-            //var node1 = new ContainerNode { Shape = SimpleShape.Rectangle, Bounds = new Rect(0, 0, 200, 200) };
-
             /* test stuff below
-            var node1 = new CustomDatabaseDiag
+            var node1 = new UMLClassNode
             {
                 Bounds = new Rect(0, 0, 300, 160),
                 ClassName = "Mike Powell",
                 MemberName = "Member 1",
                 //emberName = "Member 1",
-                Index = 0
+                ` = 0
             };         
             diagram.Nodes.Add(node1);
 
-            var node2 = new CustomDatabaseDiag
+            var node2 = new UMLClassNode
             {
                 Bounds = new Rect(0, 0, 300, 160),
                 ClassName = "Emily Williams",
@@ -112,10 +118,50 @@ namespace ProjectDiagramV1
 
         }
 
-        private void diagramView_Drop(object sender, DragEventArgs e)
+
+        private void LoadUmlNodes()
         {
+            shapeList.Items.Clear();
+
+            // Class Node
+            shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
+            shapeList.Items.Add(new ShapeNode { Shape = Shapes.Rectangle, Bounds = new Rect(0, 0, 40, 10) });
 
         }
+
+        private void LoadCrowsFootNodes()
+        {
+            shapeList.Items.Clear();
+
+            // Entity Node
+            shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedEvent, Bounds = new Rect(0, 0, 40, 40) });
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedItem = (((sender as ComboBox).SelectedItem as ComboBoxItem).Content as string);
+
+            if (selectedItem == null) // might need to use .toString() ?
+            {
+                return;
+            }
+
+            if (selectedItem.Equals("Crow's Foot Notation"))
+            {
+                LoadCrowsFootNodes();
+            }
+            else if (selectedItem.Equals("UML Class"))
+            {
+                LoadUmlNodes();
+            }
+            else
+            {
+                MessageBox.Show("Invalid ComboBox Selection, try again?");
+            }
+            
+        }
+
+
     }
 
 
