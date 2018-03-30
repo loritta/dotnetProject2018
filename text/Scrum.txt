@@ -98,10 +98,13 @@ Day 4:
 
 2018/03/29 Larisa
 1. Done since last scrum:
+Worked on the reverse enginering to understand how to structure our project. Figured out how to use resources and app.
 
 2. Plan until next Scrum:
+Decide on the Diagram types we will work on and implement the toolbar without commands for the moment
 
 3. Need assistance / figure things out:
+Need motivation. :)
 ================================================
 ----------------
 Day 5:
@@ -111,6 +114,7 @@ Day 5:
 2018/03/30 Chris
 1. Done since last scrum:
 
+
 2. Plan until next Scrum:
 
 3. Need assistance / figure things out:
@@ -118,10 +122,12 @@ Day 5:
 
 2018/03/30 Larisa
 1. Done since last scrum:
-
+Found types of diagrams, preped a txt file with them. Implementation of the toolbar and change of the appearence of the app.
 2. Plan until next Scrum:
+Finalize the toolbar implementation.. Start working on the commands.
 
 3. Need assistance / figure things out:
+Chris please choose the types of figures for each diagram type.
 ================================================
 ----------------
 Day 6:
