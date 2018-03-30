@@ -10,23 +10,26 @@
         xmlns:diag="http://mindfusion.eu/diagramming/wpf"
         xmlns:wpfx="http://mindfusion.eu/common/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1248">
+        Title="MainWindow" Height="650" Width="1248"
+         Loaded="OnWindowLoaded">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Menu Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,42" Grid.RowSpan="2">
-            <MenuItem Header="Save As"></MenuItem>
-            <MenuItem Header="View"></MenuItem>
-            <MenuItem Header="Tools"></MenuItem>
-            <MenuItem Header="Help"></MenuItem>
-        </Menu>
-        <TextBlock></TextBlock>
-        <ContentControl Content="{StaticResource MyToolbar}"/>
-
+        <!--Menu bar-->
+        <Grid Margin="0,5,0,0">
+            <Menu HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.RowSpan="2">
+                <MenuItem Header="Save As"></MenuItem>
+                <MenuItem Header="View"></MenuItem>
+                <MenuItem Header="Tools"></MenuItem>
+                <MenuItem Header="Help"></MenuItem>
+            </Menu>
+        </Grid>
+        <!-- Toolbar -->
+        <ContentControl Grid.Row="1" Content="{StaticResource MyToolbar}"/>
+        <!--Design block-->
         <Grid Grid.Row="2" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="265"/>
@@ -60,6 +63,7 @@
                     </diag:Diagram>
                 </diag:Ruler>
             </GroupBox>
+            <!--Zoom control-->
             <mfc:ZoomControl
                 Grid.Column="1"
 			x:Name="zoomControl"

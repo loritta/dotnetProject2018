@@ -29,7 +29,7 @@ namespace Test2
 
             // test
             var myResourceDictionary = new ResourceDictionary();
-            myResourceDictionary.Source = new Uri("Themes/CustomDiagram.xaml", UriKind.RelativeOrAbsolute);
+            myResourceDictionary.Source = new Uri("Resources/CustomDiagram.xaml", UriKind.RelativeOrAbsolute);
 
 
             Images = new List<ImageSource>(new ImageSource[]
