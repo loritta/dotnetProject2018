@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Test2.Resources">
 
-    <!--<ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Styles/Shared.xaml"/>
-        <ResourceDictionary Source="Styles/ToolBar.xaml"/>
-    </ResourceDictionary.MergedDictionaries>-->
+   <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="Styles/Shared.xaml"/>-->
+        <ResourceDictionary Source="Styles/Toolbar.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
     <ToolBar x:Key="MyToolbar" Height="120">
         <!--File-->
@@ -212,8 +212,9 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,0,0">
                     <Button Margin="3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.DistributeHorizontal}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                           >
+                        <!--Command="{x:Static s:DesignerCanvas.DistributeHorizontal}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -227,8 +228,9 @@
                     </Button>
                     <Button Margin="3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.DistributeVertical}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.DistributeVertical}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -257,8 +259,9 @@
                 <StackPanel>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.Group}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.Group}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -272,8 +275,9 @@
                     </Button>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.Ungroup}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.Ungroup}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -289,8 +293,9 @@
                 <StackPanel Grid.Column="1" Margin="7,0,0,0">
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.BringForward}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.BringForward}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -304,8 +309,9 @@
                     </Button>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.BringToFront}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.BringToFront}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -325,8 +331,9 @@
                 <StackPanel Grid.Column="2">
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.SendBackward}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.SendBackward}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -340,8 +347,9 @@
                     </Button>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static s:DesignerCanvas.SendToBack}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            >
+                        <!--Command="{x:Static s:DesignerCanvas.SendToBack}"
+                            CommandTarget="{Binding ElementName=MyDesigner}"-->
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
