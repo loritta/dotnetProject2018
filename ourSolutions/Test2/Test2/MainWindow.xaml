@@ -56,7 +56,7 @@
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left" 
                     Drop="diagram_Drop"
-                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
+                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}" Width="1798" Height="863">
                     </diag:Diagram>
                 </diag:Ruler>
             </GroupBox>
