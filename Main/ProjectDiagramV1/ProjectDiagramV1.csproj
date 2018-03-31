@@ -40,6 +40,9 @@
     <Reference Include="MindFusion.Diagramming.Wpf, Version=3.5.2.451, Culture=neutral, PublicKeyToken=1080b51628c81789, processorArchitecture=MSIL">
       <HintPath>..\packages\MindFusion.Diagramming.Wpf.3.5.2\lib\net45\MindFusion.Diagramming.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MindFusion.Diagramming.Wpf.VisioImport">
+      <HintPath>..\packages\MindFusion.Diagramming.Wpf.3.5.2\lib\net45\MindFusion.Diagramming.Wpf.VisioImport.dll</HintPath>
+    </Reference>
     <Reference Include="MindFusion.Licensing, Version=1.0.3.25443, Culture=neutral, PublicKeyToken=9d02e21d957ddaef, processorArchitecture=MSIL">
       <HintPath>..\packages\MindFusion.Diagramming.Wpf.3.5.2\lib\net45\MindFusion.Licensing.dll</HintPath>
     </Reference>
@@ -80,6 +83,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomNodes\Resources\UMLPackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,7 +97,8 @@
     </Compile>
     <Compile Include="CustomNodes\UMLClass\UMLMember.cs" />
     <Compile Include="CustomNodes\UMLClass\UMLClassNode.cs" />
-    <Compile Include="CustomNodes\CrowsFootEntity.cs" />
+    <Compile Include="CustomNodes\Crow%27sFoot\CrowsFootEntity.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLPackage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

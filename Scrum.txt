@@ -111,15 +111,19 @@ Day 5:
 
 2018/03/30 Chris
 1. Done since last scrum:
-
+- Many things
 
 2. Plan until next Scrum:
 
 -Customize the event "NodeDoubleClicked" event for the diagram
 (so that you edit the text wherever you clicked, not the default text
+-Start work on connectors
+-More custom nodes/diagram types
  
 3. Need assistance / figure things out:
 
+-Dragging and dropping a "member" node on a "entity" node to add that member
+to the entity, as if clicking the "add member" button (see visio)
 
 2018/03/30 Larisa
 1. Done since last scrum:

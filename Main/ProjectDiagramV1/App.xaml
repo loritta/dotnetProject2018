@@ -5,6 +5,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClass.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/UMLMember.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLPackage.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/CrowsFootEntity.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

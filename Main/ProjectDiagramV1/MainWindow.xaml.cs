@@ -30,7 +30,6 @@ namespace ProjectDiagramV1
             //shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
             //  shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
 
-
             // testing below
             diagram.LinkHeadShape = ArrowHeads.Triangle;
             diagram.DiagramLinkStyle = new System.Windows.Style();
@@ -41,7 +40,14 @@ namespace ProjectDiagramV1
             diagram.RoundedLinksRadius = 10;
             diagram.LinkSegments = 3;
             diagram.Behavior = Behavior.Modify;
-        }
+
+            // works if you can find .vsx files
+            VisioStencil stencil = VisioStencil.LoadFromXml(@"../../s_symbols_Databases_2016.vss");
+            VisioNode visioNode = new VisioNode();
+            visioNode.Content = VisioContent.Create(stencil, 0);
+
+            shapeList.Items.Add(visioNode);
+        }   
         private void diagram_Drop(object sender, DragEventArgs e)
         {
             ShapeNode node = diagram.Items[diagram.Items.Count - 1] as ShapeNode;
@@ -79,6 +85,15 @@ namespace ProjectDiagramV1
                 };
                 diagram.Nodes.Add(node1);
             }
+            else if (nodeShape.Shape.Equals(Shapes.Rectangle))
+            {
+                var node1 = new UMLMember
+                {
+                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 100),
+
+                };
+                diagram.Nodes.Add(node1);
+            }
             else
             {
                 MessageBox.Show("FML");
@@ -88,26 +103,7 @@ namespace ProjectDiagramV1
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            /* test stuff below
-            var node1 = new UMLClassNode
-            {
-                Bounds = new Rect(0, 0, 300, 160),
-                ClassName = "Mike Powell",
-                MemberName = "Member 1",
-                //emberName = "Member 1",
-                ` = 0
-            };         
-            diagram.Nodes.Add(node1);
-
-            var node2 = new UMLClassNode
-            {
-                Bounds = new Rect(0, 0, 300, 160),
-                ClassName = "Emily Williams",
-                MemberName = "Emily is the leader highest in the PR hierarchy.",
-                Index = 1
-            };
-            diagram.Nodes.Add(node2);
-            */
+    
             TreeLayout layout = new TreeLayout();
             layout.Type = TreeLayoutType.Centered;
             layout.LinkStyle = TreeLayoutLinkType.Cascading3;
