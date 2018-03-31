@@ -4,12 +4,12 @@
     <!-- Toolbar Brushes -->
     <SolidColorBrush x:Key="ToolbarBorderBrush" Color="#ffb3f9db"/>
     <SolidColorBrush x:Key="ToolbarDarkBorderBrush" Color="#ff7085e2"/>
-    <SolidColorBrush x:Key="ToolbarTextBrush" Color="#ff011322"/>
+    <SolidColorBrush x:Key="ToolbarTextBrush" Color="#ffdcdcdc"/>
     <SolidColorBrush x:Key="ToolbarGroupHeaderBrush" Color="#203c8571"/>
 
     <LinearGradientBrush x:Key="ToolbarBrush" ColorInterpolationMode="ScRgbLinearInterpolation" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#D7E3F2" Offset="0.1"/>
-        <GradientStop Color="#E3F4FF" Offset="1"/>
+        <GradientStop Color="#7c7471" Offset="0.1"/>
+        <GradientStop Color="#4d4b48" Offset="1"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ToolbarSelectedBackgroundBrush" StartPoint="0,0" EndPoint="0,1">

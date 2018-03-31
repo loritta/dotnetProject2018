@@ -10,7 +10,7 @@
         xmlns:diag="http://mindfusion.eu/diagramming/wpf"
         xmlns:wpfx="http://mindfusion.eu/common/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1248"
+        Title="MainWindow" Height="650" Width="1132.5"
          Loaded="OnWindowLoaded">
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -61,7 +61,7 @@
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left" 
                     Drop="diagram_Drop"
-                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}" Width="1798" Height="863">
+                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
                     </diag:Diagram>
                 </diag:Ruler>
             </GroupBox>
