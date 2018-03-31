@@ -45,11 +45,15 @@ Day 2:
 
 2018/03/27 Chris
 1. Done since last scrum:
+Designed basic UI
+Researched technology that we will be using
 
 2. Plan until next Scrum:
+Start working on the project's functionality
+Prioritize work
 
 3. Need assistance / figure things out:
-
+Project planning
 
 2018/03/27 Larisa
 1. Done since last scrum:
@@ -113,12 +117,20 @@ Day 5:
 
 2018/03/30 Chris
 1. Done since last scrum:
+- Many things
 
 
 2. Plan until next Scrum:
 
+-Customize the event "NodeDoubleClicked" event for the diagram
+(so that you edit the text wherever you clicked, not the default text
+-Start work on connectors
+-More custom nodes/diagram types
+ 
 3. Need assistance / figure things out:
 
+-Dragging and dropping a "member" node on a "entity" node to add that member
+to the entity, as if clicking the "add member" button (see visio)
 
 2018/03/30 Larisa
 1. Done since last scrum:

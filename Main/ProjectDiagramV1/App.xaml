@@ -3,9 +3,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Toolkit.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/CustomDiagram.xaml" />
+
+                <ResourceDictionary Source="CustomNodes/Resources/UMLClass.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLMember.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLPackage.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/CrowsFootEntity.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

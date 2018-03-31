@@ -1,3 +1,10 @@
 Some mindfusion documentation
 
 https://mindfusion.eu/blog/
+
+Default shapes table
+https://www.mindfusion.eu/onlinehelp/flowchartnet/Table_of_Predefined_Shapes.htm
+
+Connectors
+
+https://mindfusion.eu/blog/create-diagram-connectors-using-drag-and-drop/

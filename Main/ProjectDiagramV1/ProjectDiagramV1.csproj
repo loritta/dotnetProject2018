@@ -40,6 +40,9 @@
     <Reference Include="MindFusion.Diagramming.Wpf, Version=3.5.2.451, Culture=neutral, PublicKeyToken=1080b51628c81789, processorArchitecture=MSIL">
       <HintPath>..\packages\MindFusion.Diagramming.Wpf.3.5.2\lib\net45\MindFusion.Diagramming.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MindFusion.Diagramming.Wpf.VisioImport">
+      <HintPath>..\packages\MindFusion.Diagramming.Wpf.3.5.2\lib\net45\MindFusion.Diagramming.Wpf.VisioImport.dll</HintPath>
+    </Reference>
     <Reference Include="MindFusion.Licensing, Version=1.0.3.25443, Culture=neutral, PublicKeyToken=9d02e21d957ddaef, processorArchitecture=MSIL">
       <HintPath>..\packages\MindFusion.Diagramming.Wpf.3.5.2\lib\net45\MindFusion.Licensing.dll</HintPath>
     </Reference>
@@ -72,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD
     <Compile Include="Connection.cs" />
     <Compile Include="ConnectionAdorner.cs" />
     <Compile Include="Connector.cs" />
@@ -80,6 +84,20 @@
     <Compile Include="ISelectable.cs" />
     <Compile Include="RubberbandAdorner.cs" />
     <Compile Include="SelectionService.cs" />
+=======
+    <Page Include="CustomNodes\Resources\CrowsFootEntity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLMember.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLPackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> Chris---Custom-Nodes
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,10 +106,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="CustomDatabaseDiag.cs" />
     <Compile Include="DesignerCanvas.cs" />
     <Compile Include="DesignerItem.cs" />
     <Compile Include="LoadDiagramShapes.cs" />
+=======
+    <Compile Include="CustomNodes\UMLClass\UMLMember.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLClassNode.cs" />
+    <Compile Include="CustomNodes\Crow%27sFoot\CrowsFootEntity.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLPackage.cs" />
+>>>>>>> Chris---Custom-Nodes
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -100,11 +125,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="Resources\ApplicationToolbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\CustomDiagram.xaml">
+=======
+    <Page Include="CustomNodes\Resources\UMLClass.xaml">
+>>>>>>> Chris---Custom-Nodes
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
