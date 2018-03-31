@@ -96,16 +96,10 @@
         <Label Content="Shapes" Grid.Row="2" Margin="5,5,0,0" Height="25" VerticalAlignment="Top"/>
         <Label Content="Current Model:" Grid.Row="3" Margin="0,0,0,0" Height="25" VerticalAlignment="Top"/>
         <Label Content="(Selected Model)" Grid.Row="3" Margin="0,25,0,0" Height="25" VerticalAlignment="Top"/>
-      <ComboBox Grid.Column="0" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="115" Height="25" Margin="5,55,0,0" Style="{x:Null}">
-        <ComboBoxItem>UML Class Diagram</ComboBoxItem>
-        <ComboBoxItem>Crow's Foot Database Notation</ComboBoxItem>
-      </ComboBox>
-        <!-- chris version below 
         <ComboBox Name="CmbDiagram" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="115" Height="25" Margin="5,55,0,0" Style="{x:Null}">
             <ComboBoxItem>UML Class</ComboBoxItem>
             <ComboBoxItem>Crow's Foot Notation</ComboBoxItem>
         </ComboBox>
-        -->
     </Grid>
 
 </Window>
