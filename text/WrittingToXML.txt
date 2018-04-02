@@ -1,0 +1,45 @@
+
+using (XmlWriter writer = XmlWriter.Create("books.xml"))
+{
+    writer.WriteStartElement("book");
+    writer.WriteElementString("title", "Graphics Programming using GDI+");
+    writer.WriteElementString("author", "Mahesh Chand");
+    writer.WriteElementString("publisher", "Addison-Wesley");
+    writer.WriteElementString("price", "64.95");
+    writer.WriteEndElement();
+    writer.Flush();
+}
+
+XmlWriterSettings settings = new XmlWriterSettings();
+settings.Indent = true;
+settings.IndentChars = ("    ");
+settings.CloseOutput = true;
+settings.OmitXmlDeclaration = true;                
+using (XmlWriter writer = XmlWriter.Create("books.xml", settings))
+{
+    writer.WriteStartElement("book");
+    writer.WriteElementString("title", book.Title);
+    writer.WriteElementString("author", book.Author.Name);
+    writer.WriteElementString("publisher", book.Publisher);
+    writer.WriteElementString("price", book.Price.ToString());
+    writer.WriteEndElement();
+    writer.Flush();
+}
+
+XmlWriterSettings writerSettings = new XmlWriterSettings();
+writerSettings.OmitXmlDeclaration = true;
+writerSettings.ConformanceLevel = ConformanceLevel.Fragment;
+writerSettings.CloseOutput = false;
+MemoryStream localMemoryStream = new MemoryStream();
+using (XmlWriter writer = XmlWriter.Create(localMemoryStream, writerSettings))
+{
+    writer.WriteStartElement("book");
+    writer.WriteElementString("title", "A Programmer's Guide to ADO.NET");
+    writer.WriteElementString("author", "Mahesh Chand");
+    writer.WriteElementString("publisher", "APress");
+    writer.WriteElementString("price", "44.95");
+    writer.WriteEndElement();
+    writer.Flush(); 
+}
+
+https://www.c-sharpcorner.com/UploadFile/mahesh/create-xml-in-C-Sharp/

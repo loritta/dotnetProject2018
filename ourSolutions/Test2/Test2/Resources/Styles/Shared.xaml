@@ -5,7 +5,7 @@
     <SolidColorBrush x:Key="ToolbarBorderBrush" Color="#ffb3f9db"/>
     <SolidColorBrush x:Key="ToolbarDarkBorderBrush" Color="#ff7085e2"/>
     <SolidColorBrush x:Key="ToolbarTextBrush" Color="#ffdcdcdc"/>
-    <SolidColorBrush x:Key="ToolbarGroupHeaderBrush" Color="#203c8571"/>
+    <SolidColorBrush x:Key="ToolbarGroupHeaderBrush" Color="#BF2e301b"/>
 
     <LinearGradientBrush x:Key="ToolbarBrush" ColorInterpolationMode="ScRgbLinearInterpolation" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#7c7471" Offset="0.1"/>

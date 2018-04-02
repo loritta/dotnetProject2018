@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <!--Menu bar-->
         <Grid Margin="0,5,0,0">
-            <Menu HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.RowSpan="2">
+            <Menu Style="{StaticResource Menubar}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.RowSpan="2">
                 <MenuItem Header="Save As"></MenuItem>
                 <MenuItem Header="View"></MenuItem>
                 <MenuItem Header="Tools"></MenuItem>
@@ -36,7 +36,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!-- Toolbox -->
-            <GroupBox>
+            <GroupBox Style="{StaticResource ToolbarGroup}" Header="Toolbox" Grid.Column="0" Margin="3,0,3,0">
             <StackPanel Grid.Column="0" Margin="0,0,5,0" Height="auto" VerticalAlignment="Top">
                 <Expander Header="Flow Chart" IsExpanded="True">
                     <diag:NodeListView x:Name="shapeList" HorizontalAlignment="Stretch" Margin="10" />
