@@ -15,5 +15,17 @@ namespace ProjectDiagramV1
             // Add a specific node to the list           
             shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
         }
+
+        public static void LoadCrowDatabaseNodes(NodeListView shapeList)
+        {
+            // Add a specific node to the list           
+            //
+        }
+
+        public static void Test(NodeListView shapeList)
+        {
+            // Add a specific node to the list           
+            
+        }
     }
 }

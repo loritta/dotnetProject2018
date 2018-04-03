@@ -2,6 +2,7 @@
 using MindFusion.Diagramming.Wpf.Layout;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,6 +109,9 @@ namespace ProjectDiagramV1
             };
             diagram.Nodes.Add(node2);
             */
+
+            LoadCustomShapes();
+
             TreeLayout layout = new TreeLayout();
             layout.Type = TreeLayoutType.Centered;
             layout.LinkStyle = TreeLayoutLinkType.Cascading3;
@@ -126,7 +130,6 @@ namespace ProjectDiagramV1
             // Class Node
             shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
             shapeList.Items.Add(new ShapeNode { Shape = Shapes.Rectangle, Bounds = new Rect(0, 0, 40, 10) });
-
         }
 
         private void LoadCrowsFootNodes()
@@ -161,6 +164,28 @@ namespace ProjectDiagramV1
             
         }
 
+        // ALL methods below are for testing custom shapes
+        ShapeLibrary shapeLibrary = new ShapeLibrary();
+
+        private void LoadCustomShapes()
+        {
+            shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/BasicFlowchart.sl");
+            NodesFromLib();
+            shapeList.SelectedIndex = 0;
+        }
+
+        void NodesFromLib()
+        {
+            shapeList.Items.Clear();
+            foreach (var shape in shapeLibrary.Shapes)
+            {
+                var node = new ShapeNode();
+                node.Shape = shape;
+                node.Text = node.Shape.Id;
+                node.Resize(80, 40);
+                shapeList.Items.Add(node);
+            }
+        }
 
     }
 
