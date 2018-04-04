@@ -155,7 +155,7 @@ Day 6:
 
 2018/03/31 Larisa
 1. Done since last scrum:
-
+Day off, some work on the design
 2. Plan until next Scrum:
 
 3. Need assistance / figure things out:
@@ -174,7 +174,7 @@ Day 7:
 
 2018/04/01 Larisa
 1. Done since last scrum:
-
+Day off, some work on the design
 2. Plan until next Scrum:
 
 3. Need assistance / figure things out:
@@ -192,7 +192,7 @@ Day 8:
 
 2018/04/02 Larisa
 1. Done since last scrum:
-
+Day off, some work on the design
 2. Plan until next Scrum:
 
 3. Need assistance / figure things out:
@@ -210,10 +210,11 @@ Day 9:
 
 2018/04/03 Larisa
 1. Done since last scrum:
-
+Finalized the design and started the research on commands implementation. 
 2. Plan until next Scrum:
-
+To figure out the commands. we split the work in half the custom shapes are on Chris's side. The commands on mine.
 3. Need assistance / figure things out:
+I will need to figure out how to make all the connections between the elements of the window.
 ================================================
 ----------------
 Day 10:
