@@ -18,6 +18,9 @@
                         <Rectangle
 							Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"
 							Fill="{Binding Brush}" RadiusX="0" RadiusY="0" />
+                        <TextBox AcceptsReturn="False" FontFamily="Verdana" FontSize="12" 
+                                 Foreground="Black" Text="{Binding MemberName}" 
+                                 MaxLength="30"/>
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
