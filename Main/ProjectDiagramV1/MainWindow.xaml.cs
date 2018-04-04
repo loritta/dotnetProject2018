@@ -53,38 +53,60 @@ namespace ProjectDiagramV1
         }
         private void diagram_Drop(object sender, DragEventArgs e)
         {
-            ShapeNode node = diagram.Items[diagram.Items.Count - 1] as ShapeNode;
-            node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
+            // get the "Name" value from the dragged node in the list
+            ShapeNode draggedNode = shapeList.SelectedItem as ShapeNode;
 
-            //diagram.Items.Remove(node); // dont add the default shape
-            //DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
+            ShapeNode node = diagram.Items[diagram.Items.Count - 1] as ShapeNode;
+            node.Name = draggedNode.Name;
+            node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);            
+
+            diagram.Items.Remove(node); // dont add the default shape
+            DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
         }
         // this checks the dragged node type and creates the right custom node for it...
-        private void DiagramNodeCreated(ShapeNode nodeShape)
+        private void DiagramNodeCreated(ShapeNode node)
         {
-            /*
-            if (nodeShape.Shape.Equals(Shapes.DividedProcess))
+            // no other actions needed if diagram type is basic flowchart
+            if (node.Name.Equals("processNode") || node.Name.Equals("startEndNode") ||
+                node.Name.Equals("decisionNode") || node.Name.Equals("dataNode") ||
+                node.Name.Equals("subprocessNode") || node.Name.Equals("documentNode") )
+            {
+                return;
+            }
+            
+            // UML Nodes
+            if (node.Name.Equals("classNode"))
             {
                 var node1 = new UMLClassNode
                 {
-                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 160),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
 
                 };
                 diagram.Nodes.Add(node1);
             }
-            else if (nodeShape.Shape.Equals(Shapes.DividedEvent))
+            if (node.Name.Equals("interfaceNode"))
             {
-                var node1 = new CrowsFootEntity
+                var node1 = new UMLInterfaceNode
                 {
-                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 160),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+
                 };
                 diagram.Nodes.Add(node1);
             }
-            else if (nodeShape.Shape.Equals(Shapes.Rectangle))
+
+            else if (node.Shape.Equals(Shapes.DividedEvent))
+            {
+                var node1 = new CrowsFootEntity
+                {
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else if (node.Shape.Equals(Shapes.Rectangle))
             {
                 var node1 = new UMLMember
                 {
-                    Bounds = new Rect(nodeShape.Bounds.Left, nodeShape.Bounds.Top, 300, 100),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 100),
 
                 };
                 diagram.Nodes.Add(node1);
@@ -93,34 +115,12 @@ namespace ProjectDiagramV1
             {
                 MessageBox.Show("FML");
             }
-            */
+            
         }
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            /* test stuff below
-            var node1 = new UMLClassNode
-            {
-                Bounds = new Rect(0, 0, 300, 160),
-                ClassName = "Mike Powell",
-                MemberName = "Member 1",
-                //emberName = "Member 1",
-                ` = 0
-            };         
-            diagram.Nodes.Add(node1);
 
-            var node2 = new UMLClassNode
-            {
-                Bounds = new Rect(0, 0, 300, 160),
-                ClassName = "Emily Williams",
-                MemberName = "Emily is the leader highest in the PR hierarchy.",
-                Index = 1
-            };
-            diagram.Nodes.Add(node2);
-           
-
-            LoadCustomShapes();
-            */
             TreeLayout layout = new TreeLayout();
             layout.Type = TreeLayoutType.Centered;
             layout.LinkStyle = TreeLayoutLinkType.Cascading3;
@@ -151,21 +151,60 @@ namespace ProjectDiagramV1
                     new AnchorPoint(0, 50, true, true)
                 });
 
+            // probably should have a better way of doing this instead of hard coding
+            // the getItemAt()
+
             ShapeNode processNode = shapeList.Items.GetItemAt(0) as ShapeNode;
+            processNode.Name = "processNode";
             processNode.AnchorPattern = squareAnchors;
+            processNode.TextAlignment = TextAlignment.Center;
+            processNode.TextVerticalAlignment = AlignmentY.Center;
+            processNode.ResizeToFitText(FitSize.KeepRatio);
 
             // Start/End Node (same square anchors)
-            ShapeNode startEndNode = shapeList.Items.GetItemAt(1) as ShapeNode;
+            ShapeNode startEndNode = shapeList.Items.GetItemAt(4) as ShapeNode;
+            startEndNode.Name = "startEndNode";
             startEndNode.AnchorPattern = squareAnchors;
+            startEndNode.PolygonalTextLayout = true;
+            startEndNode.TextAlignment = TextAlignment.Center;
+            startEndNode.TextVerticalAlignment = AlignmentY.Center;
+            startEndNode.ResizeToFitText(FitSize.KeepRatio);
 
             // Decision Node
-            ShapeNode decisionNode = shapeList.Items.GetItemAt(2) as ShapeNode;
+            ShapeNode decisionNode = shapeList.Items.GetItemAt(5) as ShapeNode;
+            decisionNode.Name = "decisionNode";
             decisionNode.AnchorPattern = squareAnchors;
+            decisionNode.PolygonalTextLayout = true;
+            decisionNode.TextAlignment = TextAlignment.Center;
+            decisionNode.TextVerticalAlignment = AlignmentY.Center;
+            decisionNode.ResizeToFitText(FitSize.KeepRatio);
 
             // Data Node
-            ShapeNode dataNode = shapeList.Items.GetItemAt(3) as ShapeNode;
+            ShapeNode dataNode = shapeList.Items.GetItemAt(1) as ShapeNode;
+            dataNode.Name = "dataNode";
             dataNode.AnchorPattern = squareAnchors;
+            dataNode.PolygonalTextLayout = true;
+            dataNode.TextAlignment = TextAlignment.Center;
+            dataNode.TextVerticalAlignment = AlignmentY.Center;
+            dataNode.ResizeToFitText(FitSize.KeepRatio);
 
+            // Subprocess Node
+            ShapeNode subprocessNode = shapeList.Items.GetItemAt(2) as ShapeNode;
+            subprocessNode.Name = "subprocessNode";
+            subprocessNode.AnchorPattern = squareAnchors;
+            subprocessNode.AnchorPattern = squareAnchors;
+            subprocessNode.TextAlignment = TextAlignment.Center;
+            subprocessNode.TextVerticalAlignment = AlignmentY.Center;
+            subprocessNode.ResizeToFitText(FitSize.KeepRatio);
+
+            // Document Node
+            ShapeNode documentNode = shapeList.Items.GetItemAt(3) as ShapeNode;
+            documentNode.Name = "documentNode";
+            documentNode.AnchorPattern = squareAnchors;
+            documentNode.AnchorPattern = squareAnchors;
+            documentNode.TextAlignment = TextAlignment.Center;
+            documentNode.TextVerticalAlignment = AlignmentY.Center;
+            documentNode.ResizeToFitText(FitSize.KeepRatio);
 
             diagram.LinkHeadShape = MindFusion.Diagramming.Wpf.ArrowHeads.Circle;
             diagram.LinkHeadShapeSize = 10; // dont ask me what 10 is refering to in this case.
@@ -174,9 +213,22 @@ namespace ProjectDiagramV1
         {
             shapeList.Items.Clear();
 
-            // Class Node
-            shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedProcess, Bounds = new Rect(0, 0, 40, 40) });
-            shapeList.Items.Add(new ShapeNode { Shape = Shapes.Rectangle, Bounds = new Rect(0, 0, 40, 10) });
+            shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/UMLClasses.sl");
+            NodesFromLib();
+            shapeList.SelectedIndex = 0;
+
+            ShapeNode classNode = shapeList.Items.GetItemAt(0) as ShapeNode;
+            classNode.Name = "classNode";
+
+            ShapeNode interfaceNode = shapeList.Items.GetItemAt(1) as ShapeNode;
+            interfaceNode.Name = "interfaceNode";
+
+            ShapeNode packageNode = shapeList.Items.GetItemAt(2) as ShapeNode;
+            packageNode.Name = "packageNode";
+
+            ShapeNode separatorNode = shapeList.Items.GetItemAt(3) as ShapeNode;
+            separatorNode.Name = "separatorNode";
+
         }
 
         private void LoadCrowsFootNodes()
