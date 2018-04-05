@@ -10,6 +10,6 @@ namespace Test2
     class Globals
     {
         public static Diagram diagram;
-        
+
     }
 }
