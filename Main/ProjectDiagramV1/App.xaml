@@ -6,6 +6,8 @@
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLClass.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLInterface.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLMember.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLPackage.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLSeparator.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/CrowsFootEntity.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -145,6 +145,35 @@ namespace ProjectDiagramV1
                 };
                 diagram.Nodes.Add(node1);
             }
+            else if (node.Name.Equals("separatorNode"))
+            {
+                var node1 = new UMLSeparatorNode
+                {
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 5),
+
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else if (node.Name.Equals("packageNode"))
+            {
+                var node1 = new UMLPackageNode
+                {
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+
+                };
+                diagram.Nodes.Add(node1);
+            }
+
+            // Crow's foot nodes
+            else if (node.Name.Equals("entityNode"))
+            {
+                var node1 = new CrowsFootEntity
+                {
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+
+                };
+                diagram.Nodes.Add(node1);
+            }
 
             else if (node.Shape.Equals(Shapes.DividedEvent))
             {
@@ -275,19 +304,26 @@ namespace ProjectDiagramV1
 
             ShapeNode interfaceNode = shapeList.Items.GetItemAt(1) as ShapeNode;
             interfaceNode.Name = "interfaceNode";
+            interfaceNode.Text = "";
 
             ShapeNode packageNode = shapeList.Items.GetItemAt(2) as ShapeNode;
             packageNode.Name = "packageNode";
+            packageNode.Text = "";
 
             ShapeNode separatorNode = shapeList.Items.GetItemAt(3) as ShapeNode;
             separatorNode.Name = "separatorNode";
+            separatorNode.Text = "";
 
             ShapeNode memberNode = shapeList.Items.GetItemAt(4) as ShapeNode;
             memberNode.Name = "memberNode";
+            memberNode.Text = "";
 
             // remove the text from the nodes, add a label instead (text shows on right)
             NodeListView.SetLabel(classNode, "Class");
-
+            NodeListView.SetLabel(interfaceNode, "Interface");
+            NodeListView.SetLabel(packageNode, "Package");
+            NodeListView.SetLabel(separatorNode, "Separator");
+            NodeListView.SetLabel(memberNode, "Member");
             // testing custom connectors
             // inheritance connector
             var inheritanceShape = new MindFusion.Diagramming.Wpf.Shape(
@@ -326,8 +362,57 @@ namespace ProjectDiagramV1
         {
             shapeList.Items.Clear();
 
-            // Entity Node
-            shapeList.Items.Add(new ShapeNode { Shape = Shapes.DividedEvent, Bounds = new Rect(0, 0, 40, 40) });
+            shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/CrowsFootDb.sl");
+            NodesFromLib();
+            shapeList.SelectedIndex = 0;
+
+            ShapeNode entityNode = shapeList.Items.GetItemAt(0) as ShapeNode;
+            entityNode.Name = "entityNode";
+            entityNode.Text = "";
+
+            ShapeNode primaryKeyNode = shapeList.Items.GetItemAt(1) as ShapeNode;
+            primaryKeyNode.Name = "primaryKeyNode";
+            primaryKeyNode.Text = "";
+
+            ShapeNode attributeNode = shapeList.Items.GetItemAt(2) as ShapeNode;
+            attributeNode.Name = "attributeNode";
+            attributeNode.Text = "";
+
+            // Primary key separator
+            var primaryKeySeparatorShape = new MindFusion.Diagramming.Wpf.Shape(
+                null, // no borders
+                new[] // decorations
+	            {
+                    new LineTemplate(10, 50, 90, 50, Color.FromRgb(0,0,0), DashStyles.Dot, 1),
+                },
+                null,
+                FillRule.Nonzero, "primaryKeySeparator");
+
+            var pkSeparatorListNode = new ShapeNode { Shape = primaryKeySeparatorShape };
+            shapeList.Items.Add(pkSeparatorListNode);
+
+            // remove the text from the nodes, add a label instead (text shows on right)
+            NodeListView.SetLabel(entityNode, "Entity");
+            NodeListView.SetLabel(primaryKeyNode, "Primary Key");
+            NodeListView.SetLabel(pkSeparatorListNode, "Primary Key Separator");
+            NodeListView.SetLabel(attributeNode, "Attribute");
+
+            // Relationship connector
+            var relationshipShape = new MindFusion.Diagramming.Wpf.Shape(
+                null, // no borders
+                new[] // decorations
+	            {
+                    new LineTemplate(10, 10, 10, 50),
+                    new LineTemplate(10, 50, 90, 50),
+                    //new LineTemplate(90, 50, 90, 90)
+                },
+                null,
+                FillRule.Nonzero, "Relationship");
+
+            var relationshipListNode = new ShapeNode { Shape = relationshipShape };
+            NodeListView.SetLabel(relationshipListNode, "Relationship");
+            shapeList.Items.Add(relationshipListNode);
+
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -356,17 +441,6 @@ namespace ProjectDiagramV1
                 MessageBox.Show("Invalid ComboBox Selection, try again?");
             }
             
-        }
-
-        // ALL methods below are for testing custom shapes
-
-        private void LoadCustomShapes()
-        {
-            /*
-            shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/BasicFlowchart.sl");
-            NodesFromLib();
-            shapeList.SelectedIndex = 0;
-            */
         }
 
         void NodesFromLib()
