@@ -258,8 +258,9 @@ namespace Test2
 
         private void Group_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var items = from item in this.SelectionService.CurrentSelection.OfType<DesignerItem>()
-                        where item.ParentID == Guid.Empty
+            diagram.Selection.Items.Group;
+            var items = from item in diagram.Selection.Items.OfType<DiagramNode>()
+                        where item.Parent == null
                         select item;
 
             Rect rect = GetBoundingRectangle(items);
