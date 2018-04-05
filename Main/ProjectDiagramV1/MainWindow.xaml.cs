@@ -60,9 +60,10 @@ namespace ProjectDiagramV1
             node.Name = draggedNode.Name;
             node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);            
 
-            diagram.Items.Remove(node); // dont add the default shape
+             
             DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
         }
+
         // this checks the dragged node type and creates the right custom node for it...
         private void DiagramNodeCreated(ShapeNode node)
         {
@@ -73,7 +74,8 @@ namespace ProjectDiagramV1
             {
                 return;
             }
-            
+
+            diagram.Items.Remove(node); // dont add the default shape
             // UML Nodes
             if (node.Name.Equals("classNode"))
             {
@@ -113,7 +115,7 @@ namespace ProjectDiagramV1
             }
             else
             {
-                MessageBox.Show("FML");
+                return;
             }
             
         }
@@ -291,6 +293,16 @@ namespace ProjectDiagramV1
             }
         }
 
+        // proof of concept save/load xml, add a dialog
+        private void MenuItemSave_Click(object sender, RoutedEventArgs e)
+        {
+            diagram.SaveToXml(@"../../SaveTest/diagram.xml");
+        }
+
+        private void MenuItemLoad_Click(object sender, RoutedEventArgs e)
+        {
+            diagram.LoadFromXml(@"../../SaveTest/diagram.xml");
+        }
     }
 
 

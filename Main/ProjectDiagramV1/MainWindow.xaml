@@ -42,8 +42,11 @@
             Grid.Column="0" Grid.Row="3" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
         <Border BorderThickness="1" BorderBrush="Black" 
             Grid.Column="2" Grid.Row="3" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
+        
         <Border BorderThickness="1" BorderBrush="Black" 
-            Grid.Column="2" Grid.Row="2" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
+            Grid.Column="2" Grid.Row="2" Grid.RowSpan="1" Grid.ColumnSpan="1">
+            
+        </Border>
         <GridSplitter Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="Gray" BorderThickness="5"  HorizontalAlignment="Stretch" Height="2" Width="auto" Margin="0,48,-59,0" ></GridSplitter>
         <GridSplitter Grid.Column="0" Grid.Row="2" Grid.RowSpan="1" BorderBrush="Gray" BorderThickness="5"  HorizontalAlignment="Stretch" Height="auto" Width="2" Margin="145,10,0,-10" ></GridSplitter>
         <GridSplitter Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="5"  HorizontalAlignment="Stretch" Height="auto" Width="2" Margin="0,37,99,2" ></GridSplitter>
@@ -54,6 +57,8 @@
             <MenuItem Header="View"></MenuItem>
             <MenuItem Header="Tools"></MenuItem>
             <MenuItem Header="Help"></MenuItem>
+            <MenuItem Header="SaveTest" Click="MenuItemSave_Click"></MenuItem>
+            <MenuItem Header="LoadTest" Click="MenuItemLoad_Click"></MenuItem>
         </Menu>
 
 
@@ -65,8 +70,8 @@
         <TextBlock TextWrapping="WrapWithOverflow" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                    Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"></TextBlock>
 
-            <diag:Ruler x:Name="diagramView" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
-                <diag:Diagram x:Name="diagram"   
+        <diag:Ruler x:Name="diagramView" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
+            <diag:Diagram x:Name="diagram"   
                     AllowDrop="True"                  
                     AllowInplaceEdit="True"
                     VerticalAlignment="Top" 
@@ -74,10 +79,10 @@
                     Drop="diagram_Drop"                     
                     DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
 
-                </diag:Diagram>
-            </diag:Ruler>
+            </diag:Diagram>
+        </diag:Ruler>
 
-            <mfd:Overview x:Name="overview" Document="{Binding ElementName=diagram}" DimBrush="Transparent" Grid.Column="3" Grid.Row="3" />
+        <mfd:Overview x:Name="overview" Document="{Binding ElementName=diagram}" DimBrush="Transparent" Grid.Column="3" Grid.Row="3" />
 
         <diag:NodeListView x:Name="shapeList" Grid.Column="0" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Stretch" Margin="0,35,0,0" />
         <mfc:ZoomControl
