@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using MindFusion.Diagramming.Wpf;
 
 namespace Test2
 {
@@ -20,9 +21,7 @@ namespace Test2
     {
         private List<ISelectable> currentSelection;
         
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public CommandBindingCollection CommandBindings { get; }
-        public bool AllowDrop { get; set; }
+        
         public static RoutedCommand Group = new RoutedCommand();
         public static RoutedCommand Ungroup = new RoutedCommand();
         public static RoutedCommand BringForward = new RoutedCommand();
@@ -95,7 +94,7 @@ namespace Test2
             foreach (XElement itemXML in itemsXML)
             {
                 Guid id = new Guid(itemXML.Element("ID").Value);
-                DesignerItem item = DeserializeDesignerItem(itemXML, id, 0, 0);
+                DiagramNode item = DeserializeDesignerItem(itemXML, id, 0, 0);
                 this.Children.Add(item);
                 SetConnectorDecoratorTemplate(item);
             }
@@ -126,10 +125,10 @@ namespace Test2
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IEnumerable<DesignerItem> designerItems = this.Children.OfType<DesignerItem>();
+            IEnumerable<DiagramNode> designerItems = this.Children.OfType<DiagramNode>();
             IEnumerable<Connection> connections = this.Children.OfType<Connection>();
 
-            XElement designerItemsXML = SerializeDesignerItems(designerItems);
+            XElement designerItemsXML = SerializeDesignerItems(DiagramNode);
             XElement connectionsXML = SerializeConnections(connections);
 
             XElement root = new XElement("Root");
@@ -145,7 +144,7 @@ namespace Test2
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SelectionService.ClearSelection();
+            ClearSelection();
 
             PrintDialog printDialog = new PrintDialog();
 
@@ -153,7 +152,9 @@ namespace Test2
             {
                 printDialog.PrintVisual(this, "WPF Diagram");
             }
+           
         }
+
 
         #endregion
 
@@ -166,7 +167,7 @@ namespace Test2
 
         private void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = SelectionService.CurrentSelection.Count() > 0;
+            e.CanExecute = CurrentSelection.Count() > 0;
         }
 
         #endregion
@@ -193,14 +194,14 @@ namespace Test2
                 Guid oldID = new Guid(itemXML.Element("ID").Value);
                 Guid newID = Guid.NewGuid();
                 mappingOldToNewIDs.Add(oldID, newID);
-                DesignerItem item = DeserializeDesignerItem(itemXML, newID, offsetX, offsetY);
+                DiagramNode item = DeserializeDesignerItem(itemXML, newID, offsetX, offsetY);
                 this.Children.Add(item);
                 SetConnectorDecoratorTemplate(item);
                 newItems.Add(item);
             }
 
             // update group hierarchy
-            SelectionService.ClearSelection();
+            ClearSelection();
             foreach (DesignerItem el in newItems)
             {
                 if (el.ParentID != Guid.Empty)

@@ -90,6 +90,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CustomDatabaseDiag.cs" />
+    <Compile Include="Controls\DesignerCanvas.Commands.cs" />
+    <Compile Include="Controls\DesignerCanvas.cs" />
+    <Compile Include="Controls\ISelectable.cs" />
     <Compile Include="LoadDiagramShapes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -8,10 +8,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Xml;
+using MindFusion.Diagramming.Wpf;
 
 namespace Test2
 {
-    public partial class DesignerCanvas
+    public partial class DesignerCanvas:DiagramView
     {
+        
     }
 }
