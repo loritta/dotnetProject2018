@@ -86,7 +86,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomNodes\Resources\UMLMember.xaml">
+    <Page Include="CustomNodes\Resources\UMLClasses\UMLMember.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

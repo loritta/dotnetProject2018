@@ -241,3 +241,20 @@ Day 10:
 2. Plan until next Scrum:
 
 3. Need assistance / figure things out:
+
+================================================
+----------------
+Day 11:
+================================================
+2018/04/05 Chris
+
+1. Done since last scrum:
+
+-Save and Load to/from xml seems to be working (still need to add dialog for user to select file, hardcoded for now)
+
+2. Plan until next Scrum:
+
+-Add a save/load dialog
+-Fix node text areas/connectors/bounds also visuals
+
+3. Need assistance / figure things out:

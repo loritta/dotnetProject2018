@@ -67,6 +67,47 @@ namespace ProjectDiagramV1
         // this checks the dragged node type and creates the right custom node for it...
         private void DiagramNodeCreated(ShapeNode node)
         {
+            // check if the node is a connector
+            if (node.Shape.Id == "Inheritance")
+            {
+                // replace the dummy connector node with a DiagramLink
+                var bounds = node.Bounds;
+                diagram.Items.Remove(node);
+
+                var link = diagram.Factory.CreateDiagramLink(
+                    bounds.TopLeft, bounds.BottomRight);
+                link.SegmentCount = 2;
+                link.Shape = LinkShape.Cascading;
+                link.HeadShape = ArrowHeads.Triangle; 
+                ConnectToNearbyNode(link);
+            }
+            else if (node.Shape.Id == "Interface")
+            {
+                var bounds = node.Bounds;
+                diagram.Items.Remove(node);
+
+                var link = diagram.Factory.CreateDiagramLink(
+                    bounds.TopLeft, bounds.BottomRight);
+                link.SegmentCount = 2;
+                link.Shape = LinkShape.Cascading;
+
+                System.Windows.Media.DashStyle dash = new System.Windows.Media.DashStyle();
+                dash.Dashes = new DoubleCollection(new double[] { 1, 7 });
+
+                Pen pen = new Pen(Brushes.Black, 1);
+                pen.DashStyle = dash;
+
+                link.Pen = pen;
+
+                link.HeadShape = ArrowHeads.Triangle;
+                ConnectToNearbyNode(link);
+            }
+            else
+            {
+                node.AnchorPattern = AnchorPattern.Decision2In2Out;
+                ConnectToNearbyLink(node);
+            }
+
             // no other actions needed if diagram type is basic flowchart
             if (node.Name.Equals("processNode") || node.Name.Equals("startEndNode") ||
                 node.Name.Equals("decisionNode") || node.Name.Equals("dataNode") ||
@@ -86,9 +127,18 @@ namespace ProjectDiagramV1
                 };
                 diagram.Nodes.Add(node1);
             }
-            if (node.Name.Equals("interfaceNode"))
+            else if (node.Name.Equals("interfaceNode"))
             {
                 var node1 = new UMLInterfaceNode
+                {
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else if (node.Name.Equals("memberNode"))
+            {
+                var node1 = new UMLMember
                 {
                     Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
 
@@ -221,6 +271,7 @@ namespace ProjectDiagramV1
 
             ShapeNode classNode = shapeList.Items.GetItemAt(0) as ShapeNode;
             classNode.Name = "classNode";
+            classNode.Text = "";
 
             ShapeNode interfaceNode = shapeList.Items.GetItemAt(1) as ShapeNode;
             interfaceNode.Name = "interfaceNode";
@@ -231,6 +282,44 @@ namespace ProjectDiagramV1
             ShapeNode separatorNode = shapeList.Items.GetItemAt(3) as ShapeNode;
             separatorNode.Name = "separatorNode";
 
+            ShapeNode memberNode = shapeList.Items.GetItemAt(4) as ShapeNode;
+            memberNode.Name = "memberNode";
+
+            // remove the text from the nodes, add a label instead (text shows on right)
+            NodeListView.SetLabel(classNode, "Class");
+
+            // testing custom connectors
+            // inheritance connector
+            var inheritanceShape = new MindFusion.Diagramming.Wpf.Shape(
+                null, // no borders
+                new[] // decorations
+	            {
+                    new LineTemplate(10, 10, 10, 50),
+                    new LineTemplate(10, 50, 90, 50),
+                    new LineTemplate(90, 50, 90, 90)
+                },
+                null,
+                FillRule.Nonzero, "Inheritance");
+
+            var inheritanceListNode = new ShapeNode { Shape = inheritanceShape };
+            NodeListView.SetLabel(inheritanceListNode, "Inheritance");
+            shapeList.Items.Add(inheritanceListNode);
+
+            // Interface realization
+            var interfaceShape = new MindFusion.Diagramming.Wpf.Shape(
+                null, // no borders
+                new[] // decorations
+	            {
+                    new LineTemplate(10, 10, 10, 50, Color.FromRgb(0,0,0), DashStyles.Dot, 1),
+                    new LineTemplate(10, 50, 90, 50, Color.FromRgb(0,0,0), DashStyles.Dot, 1),
+                    new LineTemplate(90, 50, 90, 90, Color.FromRgb(0,0,0), DashStyles.Dot, 1)
+                },  
+                null,
+                FillRule.Nonzero, "Interface");
+
+            var interfaceListNode = new ShapeNode { Shape = interfaceShape };
+            NodeListView.SetLabel(interfaceListNode, "Interface Realization");
+            shapeList.Items.Add(interfaceListNode);
         }
 
         private void LoadCrowsFootNodes()
@@ -302,6 +391,68 @@ namespace ProjectDiagramV1
         private void MenuItemLoad_Click(object sender, RoutedEventArgs e)
         {
             diagram.LoadFromXml(@"../../SaveTest/diagram.xml");
+        }
+
+        // link connecting methods
+        private void ConnectToNearbyNode(DiagramLink link)
+        {
+            // connect to a nearby origin node
+            var origin = diagram.Nodes.OrderBy(n =>
+                MindFusion.Utilities.Distance(n.GetCenter(), link.StartPoint)).FirstOrDefault();
+
+            if (origin != null)
+            {
+                var distance = MindFusion.Utilities.Distance(origin.GetCenter(), link.StartPoint);
+                if (distance < 120)
+                {
+                    link.Origin = origin;
+                    link.Route();
+                }
+            }
+
+            // connect to a nearby destination node
+            var destination = diagram.Nodes.Where(n => n != origin).OrderBy(n =>
+                MindFusion.Utilities.Distance(n.GetCenter(), link.EndPoint)).FirstOrDefault();
+
+            if (destination != null)
+            {
+                var distance = MindFusion.Utilities.Distance(destination.GetCenter(), link.EndPoint);
+                if (distance < 120)
+                {
+                    link.Destination = destination;
+                    link.Route();
+                }
+            }
+        }
+        private void ConnectToNearbyLink(DiagramNode node)
+        {
+            var outLink = diagram.Links.Where(l => l.Origin is DummyNode).OrderBy(l =>
+                MindFusion.Utilities.Distance(node.GetCenter(), l.StartPoint)).FirstOrDefault();
+
+            if (outLink != null)
+            {
+                var distance = MindFusion.Utilities.Distance(node.GetCenter(), outLink.StartPoint);
+                if (distance < 90)
+                {
+                    outLink.Origin = node;
+                    outLink.Route();
+                    return;
+                }
+            }
+
+            var inLink = diagram.Links.Where(l => l.Destination is DummyNode).OrderBy(l =>
+                MindFusion.Utilities.Distance(node.GetCenter(), l.EndPoint)).FirstOrDefault();
+
+            if (inLink != null)
+            {
+                var distance = MindFusion.Utilities.Distance(node.GetCenter(), inLink.EndPoint);
+                if (distance < 90)
+                {
+                    inLink.Destination = node;
+                    inLink.Route();
+                    return;
+                }
+            }
         }
     }
 
