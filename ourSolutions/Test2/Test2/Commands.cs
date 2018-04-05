@@ -17,10 +17,10 @@ using MindFusion.Diagramming.Wpf;
 
 namespace Test2
 {
-    public partial class DesignerCanvas
+    public class Commands
     {
         private List<ISelectable> currentSelection;
-        
+        private Diagram diagram = Globals.diagram;
         
         public static RoutedCommand Group = new RoutedCommand();
         public static RoutedCommand Ungroup = new RoutedCommand();
@@ -38,42 +38,42 @@ namespace Test2
         public static RoutedCommand DistributeVertical = new RoutedCommand();
         public static RoutedCommand SelectAll = new RoutedCommand();
 
-        public DesignerCanvas()
+        public Commands()
         {
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, Copy_Executed, Copy_Enabled));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, Paste_Executed, Paste_Enabled));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, Delete_Executed, Delete_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.Group, Group_Executed, Group_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.Ungroup, Ungroup_Executed, Ungroup_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.BringForward, BringForward_Executed, Order_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.BringToFront, BringToFront_Executed, Order_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SendBackward, SendBackward_Executed, Order_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SendToBack, SendToBack_Executed, Order_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.AlignTop, AlignTop_Executed, Align_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.AlignVerticalCenters, AlignVerticalCenters_Executed, Align_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.AlignBottom, AlignBottom_Executed, Align_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.AlignLeft, AlignLeft_Executed, Align_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.AlignHorizontalCenters, AlignHorizontalCenters_Executed, Align_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.AlignRight, AlignRight_Executed, Align_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeHorizontal, DistributeHorizontal_Executed, Distribute_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
-            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SelectAll, SelectAll_Executed));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, Copy_Executed, Copy_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, Paste_Executed, Paste_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, Delete_Executed, Delete_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(Group, Group_Executed, Group_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(Ungroup, Ungroup_Executed, Ungroup_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(BringForward, BringForward_Executed, Order_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(BringToFront, BringToFront_Executed, Order_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(SendBackward, SendBackward_Executed, Order_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(SendToBack, SendToBack_Executed, Order_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignTop, AlignTop_Executed, Align_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignVerticalCenters, AlignVerticalCenters_Executed, Align_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignBottom, AlignBottom_Executed, Align_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignLeft, AlignLeft_Executed, Align_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignHorizontalCenters, AlignHorizontalCenters_Executed, Align_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignRight, AlignRight_Executed, Align_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(DistributeHorizontal, DistributeHorizontal_Executed, Distribute_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
+            Globals.diagram.CommandBindings.Add(new CommandBinding(SelectAll, SelectAll_Executed));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
 
-            this.AllowDrop = true;
+            Globals.diagram.AllowDrop = true;
             Clipboard.Clear();
         }
         #region New Command
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            this.Children.Clear();
-            this.ClearSelection();
+            Globals.diagram.ClearAll();
+            Globals.diagram.Selection.Clear(); 
         }
 
         #endregion
@@ -82,41 +82,10 @@ namespace Test2
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            XElement root = LoadSerializedDataFromFile();
-
-            if (root == null)
-                return;
-
-            this.Children.Clear();
-            this.ClearSelection();
-
-            IEnumerable<XElement> itemsXML = root.Elements("DesignerItems").Elements("DesignerItem");
-            foreach (XElement itemXML in itemsXML)
-            {
-                Guid id = new Guid(itemXML.Element("ID").Value);
-                DiagramNode item = DeserializeDesignerItem(itemXML, id, 0, 0);
-                this.Children.Add(item);
-                SetConnectorDecoratorTemplate(item);
-            }
-
-            this.InvalidateVisual();
-
-            IEnumerable<XElement> connectionsXML = root.Elements("Connections").Elements("Connection");
-            foreach (XElement connectionXML in connectionsXML)
-            {
-                Guid sourceID = new Guid(connectionXML.Element("SourceID").Value);
-                Guid sinkID = new Guid(connectionXML.Element("SinkID").Value);
-
-                String sourceConnectorName = connectionXML.Element("SourceConnectorName").Value;
-                String sinkConnectorName = connectionXML.Element("SinkConnectorName").Value;
-
-                Connector sourceConnector = GetConnector(sourceID, sourceConnectorName);
-                Connector sinkConnector = GetConnector(sinkID, sinkConnectorName);
-
-                Connection connection = new Connection(sourceConnector, sinkConnector);
-                Canvas.SetZIndex(connection, Int32.Parse(connectionXML.Element("zIndex").Value));
-                this.Children.Add(connection);
-            }
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+                openFileDialog.Filter = "XML files (*.xml)|*.xml";
+            diagram.LoadFromXml(openFileDialog.FileName);
         }
 
         #endregion
@@ -125,17 +94,10 @@ namespace Test2
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IEnumerable<DiagramNode> designerItems = this.Children.OfType<DiagramNode>();
-            IEnumerable<Connection> connections = this.Children.OfType<Connection>();
-
-            XElement designerItemsXML = SerializeDesignerItems(DiagramNode);
-            XElement connectionsXML = SerializeConnections(connections);
-
-            XElement root = new XElement("Root");
-            root.Add(designerItemsXML);
-            root.Add(connectionsXML);
-
-            SaveFile(root);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+                saveFileDialog.Filter = "XML files (*.xml)|*.xml";
+            diagram.SaveToXml(saveFileDialog.FileName);
         }
 
         #endregion
@@ -144,15 +106,16 @@ namespace Test2
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ClearSelection();
+            diagram.Selection.Dispose();
 
             PrintDialog printDialog = new PrintDialog();
 
             if (true == printDialog.ShowDialog())
             {
-                printDialog.PrintVisual(this, "WPF Diagram");
+                printDialog.PrintVisual(diagram, "WPF Diagram");
             }
-           
+            //attention to see if it works and then delete the top
+            diagram.Print();
         }
 
 
@@ -162,12 +125,13 @@ namespace Test2
 
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            CopyCurrentSelection();
+            //to test
+            diagram.CopySelection(diagram, true, true);
         }
 
         private void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = CurrentSelection.Count() > 0;
+            e.CanExecute = diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
@@ -263,12 +227,13 @@ namespace Test2
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            DeleteCurrentSelection();
+            diagram.Selection.Clear();
+            
         }
 
         private void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = this.SelectionService.CurrentSelection.Count() > 0;
+            e.CanExecute = diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
@@ -277,13 +242,14 @@ namespace Test2
 
         private void Cut_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            CopyCurrentSelection();
-            DeleteCurrentSelection();
+            diagram.Selection.Clone(true);
+            
+            diagram.Selection.Clear();
         }
 
         private void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = this.SelectionService.CurrentSelection.Count() > 0;
+            e.CanExecute = diagram.Selection.Items.Count() > 0;
         }
 
         #endregion

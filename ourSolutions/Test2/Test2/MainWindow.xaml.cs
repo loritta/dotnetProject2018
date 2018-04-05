@@ -27,6 +27,7 @@ namespace Test2
         public MainWindow()
         {
             InitializeComponent();
+            Globals.diagram = diagram;
             // load the built in nodes list
             //shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
             //  shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
