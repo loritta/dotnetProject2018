@@ -91,9 +91,6 @@
     </Compile>
     <Compile Include="Commands.cs" />
     <Compile Include="CustomDatabaseDiag.cs" />
-    <Compile Include="Controls\DesignerCanvas.Commands.cs" />
-    <Compile Include="Controls\DesignerCanvas.cs" />
-    <Compile Include="Controls\ISelectable.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="LoadDiagramShapes.cs" />
     <Compile Include="MainWindow.xaml.cs">
