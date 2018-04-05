@@ -37,17 +37,17 @@
             </Grid.ColumnDefinitions>
             <!-- Toolbox -->
             <GroupBox Style="{StaticResource ToolbarGroup}" Header="Toolbox" Grid.Column="0" Margin="3,0,3,0">
-                <StackPanel Grid.Column="0" Margin="0,0,5,0" Height="auto" VerticalAlignment="Top">
-                    <Expander Header="Flow Chart" IsExpanded="True">
-                        <diag:NodeListView x:Name="shapeList" HorizontalAlignment="Stretch" Margin="10" />
-                    </Expander>
-                    <Expander Header="Diagram type" IsExpanded="True">
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Height="25" Margin="10" Style="{x:Null}">
-                            <ComboBoxItem>UML Class Diagram</ComboBoxItem>
-                            <ComboBoxItem>Crow's Foot Database Notation</ComboBoxItem>
-                        </ComboBox>
-                    </Expander>
-                </StackPanel>
+            <StackPanel Grid.Column="0" Margin="0,0,5,0" Height="auto" VerticalAlignment="Top">
+                <Expander Header="Flow Chart" IsExpanded="True">
+                    <diag:NodeListView x:Name="shapeList" HorizontalAlignment="Stretch" Margin="10" />
+                </Expander>
+                <Expander Header="Diagram type" IsExpanded="True">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Height="25" Margin="10" Style="{x:Null}">
+                        <ComboBoxItem>UML Class Diagram</ComboBoxItem>
+                        <ComboBoxItem>Crow's Foot Database Notation</ComboBoxItem>
+                    </ComboBox>
+                </Expander>
+            </StackPanel>
             </GroupBox>
             <!-- GridSplitter -->
             <GridSplitter Focusable="False" Width="2" Background="LightGray"
