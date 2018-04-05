@@ -3,7 +3,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="CustomNodes/Resources/UMLClass.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLClass.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLInterface.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/UMLMember.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/CrowsFootEntity.xaml" />
             </ResourceDictionary.MergedDictionaries>

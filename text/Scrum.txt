@@ -222,7 +222,15 @@ Day 10:
 2018/04/04 Chris
 1. Done since last scrum:
 
+-Figured out how to make custom shapes, and save custom shape libraries for different diagram styles
+-Figured out how to implement connectors between nodes
+
 2. Plan until next Scrum:
+
+-Start work on text areas for nodes
+-More diagram types and nodes
+-More connector styles (add different connectors that user can select, depending on diagram type)
+-Adjust user text input areas on nodes
 
 3. Need assistance / figure things out:
 
