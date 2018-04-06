@@ -126,7 +126,7 @@ namespace Test2
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //to test
-            diagram.CopySelection(diagram, true, true);
+            diagram.CopyToClipboard(false);
         }
 
         private void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
@@ -140,82 +140,11 @@ namespace Test2
 
         private void Paste_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            XElement root = LoadSerializedDataFromClipBoard();
-
-            if (root == null)
-                return;
-
-            // create DesignerItems
-            Dictionary<Guid, Guid> mappingOldToNewIDs = new Dictionary<Guid, Guid>();
-            List<ISelectable> newItems = new List<ISelectable>();
-            IEnumerable<XElement> itemsXML = root.Elements("DesignerItems").Elements("DesignerItem");
-
-            double offsetX = Double.Parse(root.Attribute("OffsetX").Value, CultureInfo.InvariantCulture);
-            double offsetY = Double.Parse(root.Attribute("OffsetY").Value, CultureInfo.InvariantCulture);
-
-            foreach (XElement itemXML in itemsXML)
-            {
-                Guid oldID = new Guid(itemXML.Element("ID").Value);
-                Guid newID = Guid.NewGuid();
-                mappingOldToNewIDs.Add(oldID, newID);
-                DiagramNode item = DeserializeDesignerItem(itemXML, newID, offsetX, offsetY);
-                this.Children.Add(item);
-                SetConnectorDecoratorTemplate(item);
-                newItems.Add(item);
-            }
-
-            // update group hierarchy
-            ClearSelection();
-            foreach (DesignerItem el in newItems)
-            {
-                if (el.ParentID != Guid.Empty)
-                    el.ParentID = mappingOldToNewIDs[el.ParentID];
-            }
-
-
-            foreach (DesignerItem item in newItems)
-            {
-                if (item.ParentID == Guid.Empty)
-                {
-                    SelectionService.AddToSelection(item);
-                }
-            }
-
-            // create Connections
-            IEnumerable<XElement> connectionsXML = root.Elements("Connections").Elements("Connection");
-            foreach (XElement connectionXML in connectionsXML)
-            {
-                Guid oldSourceID = new Guid(connectionXML.Element("SourceID").Value);
-                Guid oldSinkID = new Guid(connectionXML.Element("SinkID").Value);
-
-                if (mappingOldToNewIDs.ContainsKey(oldSourceID) && mappingOldToNewIDs.ContainsKey(oldSinkID))
-                {
-                    Guid newSourceID = mappingOldToNewIDs[oldSourceID];
-                    Guid newSinkID = mappingOldToNewIDs[oldSinkID];
-
-                    String sourceConnectorName = connectionXML.Element("SourceConnectorName").Value;
-                    String sinkConnectorName = connectionXML.Element("SinkConnectorName").Value;
-
-                    Connector sourceConnector = GetConnector(newSourceID, sourceConnectorName);
-                    Connector sinkConnector = GetConnector(newSinkID, sinkConnectorName);
-
-                    Connection connection = new Connection(sourceConnector, sinkConnector);
-                    Canvas.SetZIndex(connection, Int32.Parse(connectionXML.Element("zIndex").Value));
-                    this.Children.Add(connection);
-
-                    SelectionService.AddToSelection(connection);
-                }
-            }
-
-            DesignerCanvas.BringToFront.Execute(null, this);
-
-            // update paste offset
-            root.Attribute("OffsetX").Value = (offsetX + 10).ToString();
-            root.Attribute("OffsetY").Value = (offsetY + 10).ToString();
+            Vector offset = new Vector(1, 1);
+            diagram.PasteFromClipboard(offset, true);
             Clipboard.Clear();
-            Clipboard.SetData(DataFormats.Xaml, root);
         }
-
+      
         private void Paste_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = Clipboard.ContainsData(DataFormats.Xaml);
@@ -227,7 +156,7 @@ namespace Test2
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            diagram.Selection.Clear();
+             diagram.Selection.Clear(); 
 
         }
 
@@ -240,12 +169,7 @@ namespace Test2
 
         #region Cut Command
 
-        private void Cut_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            diagram.Selection.Clone(true);
-
-            diagram.Selection.Clear();
-        }
+        private void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.CutToClipboard(false, true);
 
         private void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -258,37 +182,46 @@ namespace Test2
 
         private void Group_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            diagram.Selection.Items.Group;
-            var items = from item in diagram.Selection.Items.OfType<DiagramNode>()
-                        where item.Parent == null
-                        select item;
+            if (diagram.Selection.Nodes.Count > 1)
+            {
+                var groupNode = diagram.Factory.CreateShapeNode(0, 0, 1, 1);
+                groupNode.ZBottom(false);
+                groupNode.Transparent = true;
 
-            Rect rect = GetBoundingRectangle(items);
+                groupNode.HandlesStyle = HandlesStyle.RoundAndSquare2;
+                //to ne tested
+                diagram.ActiveItemHandlesStyle.HandleBrush = Brushes.LightBlue;
+                diagram.ActiveItemHandlesStyle.DashPen.Brush = Brushes.LightBlue;
+                //
+                groupNode.HandlesStyle = HandlesStyle.MoveOnly;
 
-            DesignerItem groupItem = new DesignerItem();
-            groupItem.IsGroup = true;
-            groupItem.Width = rect.Width;
-            groupItem.Height = rect.Height;
-            Canvas.SetLeft(groupItem, rect.Left);
-            Canvas.SetTop(groupItem, rect.Top);
-            Canvas groupCanvas = new Canvas();
-            groupItem.Content = groupCanvas;
-            Canvas.SetZIndex(groupItem, this.Children.Count);
-            this.Children.Add(groupItem);
-
-            foreach (DesignerItem item in items)
-                item.ParentID = groupItem.ID;
-
-            this.SelectionService.SelectItem(groupItem);
+                CreateGroup(groupNode, diagram.Selection.Nodes);
+                foreach (DiagramNode child in groupNode.SubordinateGroup.AttachedNodes)
+                    child.Locked = true;
+                groupNode.SubordinateGroup.AutoDeleteItems = true;
+                diagram.Selection.Change(groupNode);
+            }
         }
+
+        private void CreateGroup(DiagramNode node, DiagramNodeCollection children)
+        {
+            Rect r = Rect.Empty;
+            foreach (DiagramNode child in children)
+            {
+                Rect cb = child.Bounds;
+                r = r.IsEmpty ? cb : Rect.Union(r, cb);
+            }
+            double margin = 5;
+            r.Inflate(margin, margin);
+            node.Bounds = r;
+            foreach (DiagramNode child in children)
+                child.AttachTo(node, AttachToNode.TopLeft);
+        }
+
 
         private void Group_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            int count = (from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                         where item.ParentID == Guid.Empty
-                         select item).Count();
-
-            e.CanExecute = count > 1;
+            e.CanExecute = true;
         }
 
         #endregion
@@ -297,34 +230,23 @@ namespace Test2
 
         private void Ungroup_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var groups = (from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                          where item.IsGroup && item.ParentID == Guid.Empty
-                          select item).ToArray();
-
-            foreach (DesignerItem groupRoot in groups)
+            var groupContainer = diagram.ActiveItem as ShapeNode;
+            if (groupContainer != null &&
+                  groupContainer.SubordinateGroup != null)
             {
-                var children = from child in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                               where child.ParentID == groupRoot.ID
-                               select child;
-
-                foreach (DesignerItem child in children)
-                    child.ParentID = Guid.Empty;
-
-                this.SelectionService.RemoveFromSelection(groupRoot);
-                this.Children.Remove(groupRoot);
-                UpdateZIndex();
+                var attachedNodes = new List<DiagramNode>();
+                foreach (DiagramNode node in groupContainer.SubordinateGroup.AttachedNodes)
+                    attachedNodes.Add(node);
+                foreach (DiagramNode node in attachedNodes)
+                {
+                    node.Locked = false;
+                    node.Detach();
+                }
+                diagram.Nodes.Remove(groupContainer);
             }
         }
 
-        private void Ungroup_Enabled(object sender, CanExecuteRoutedEventArgs e)
-        {
-            var groupedItem = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                              where item.ParentID != Guid.Empty
-                              select item;
-
-
-            e.CanExecute = groupedItem.Count() > 0;
-        }
+        private void Ungroup_Enabled(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = diagram.Selection.GetSize() > 0;
 
         #endregion
 
@@ -332,155 +254,76 @@ namespace Test2
 
         private void BringForward_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            List<UIElement> ordered = (from item in SelectionService.CurrentSelection
-                                       orderby Canvas.GetZIndex(item as UIElement) descending
-                                       select item as UIElement).ToList();
-
-            int count = this.Children.Count;
-
-            for (int i = 0; i < ordered.Count; i++)
-            {
-                int currentIndex = Canvas.GetZIndex(ordered[i]);
-                int newIndex = Math.Min(count - 1 - i, currentIndex + 1);
-                if (currentIndex != newIndex)
-                {
-                    Canvas.SetZIndex(ordered[i], newIndex);
-                    IEnumerable<UIElement> it = this.Children.OfType<UIElement>().Where(item => Canvas.GetZIndex(item) == newIndex);
-
-                    foreach (UIElement elm in it)
-                    {
-                        if (elm != ordered[i])
-                        {
-                            Canvas.SetZIndex(elm, currentIndex);
-                            break;
-                        }
-                    }
-                }
-            }
+            diagram.Selection.ZLevelUp(false);
         }
 
         private void Order_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            //e.CanExecute = SelectionService.CurrentSelection.Count() > 0;
-            e.CanExecute = true;
+            e.CanExecute = diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
 
         #region BringToFront Command
 
-        private void BringToFront_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            List<UIElement> selectionSorted = (from item in SelectionService.CurrentSelection
-                                               orderby Canvas.GetZIndex(item as UIElement) ascending
-                                               select item as UIElement).ToList();
-
-            List<UIElement> childrenSorted = (from UIElement item in this.Children
-                                              orderby Canvas.GetZIndex(item as UIElement) ascending
-                                              select item as UIElement).ToList();
-
-            int i = 0;
-            int j = 0;
-            foreach (UIElement item in childrenSorted)
-            {
-                if (selectionSorted.Contains(item))
-                {
-                    int idx = Canvas.GetZIndex(item);
-                    Canvas.SetZIndex(item, childrenSorted.Count - selectionSorted.Count + j++);
-                }
-                else
-                {
-                    Canvas.SetZIndex(item, i++);
-                }
-            }
-        }
+        private void BringToFront_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZTop(false);
 
         #endregion
 
         #region SendBackward Command
 
-        private void SendBackward_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            List<UIElement> ordered = (from item in SelectionService.CurrentSelection
-                                       orderby Canvas.GetZIndex(item as UIElement) ascending
-                                       select item as UIElement).ToList();
-
-            int count = this.Children.Count;
-
-            for (int i = 0; i < ordered.Count; i++)
-            {
-                int currentIndex = Canvas.GetZIndex(ordered[i]);
-                int newIndex = Math.Max(i, currentIndex - 1);
-                if (currentIndex != newIndex)
-                {
-                    Canvas.SetZIndex(ordered[i], newIndex);
-                    IEnumerable<UIElement> it = this.Children.OfType<UIElement>().Where(item => Canvas.GetZIndex(item) == newIndex);
-
-                    foreach (UIElement elm in it)
-                    {
-                        if (elm != ordered[i])
-                        {
-                            Canvas.SetZIndex(elm, currentIndex);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        private void SendBackward_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZLevelDown(false);
 
         #endregion
 
         #region SendToBack Command
 
-        private void SendToBack_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            List<UIElement> selectionSorted = (from item in SelectionService.CurrentSelection
-                                               orderby Canvas.GetZIndex(item as UIElement) ascending
-                                               select item as UIElement).ToList();
+        private void SendToBack_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZBottom(false);
 
-            List<UIElement> childrenSorted = (from UIElement item in this.Children
-                                              orderby Canvas.GetZIndex(item as UIElement) ascending
-                                              select item as UIElement).ToList();
-            int i = 0;
-            int j = 0;
-            foreach (UIElement item in childrenSorted)
-            {
-                if (selectionSorted.Contains(item))
-                {
-                    int idx = Canvas.GetZIndex(item);
-                    Canvas.SetZIndex(item, j++);
-
-                }
-                else
-                {
-                    Canvas.SetZIndex(item, selectionSorted.Count + i++);
-                }
-            }
-        }
 
         #endregion
 
         #region AlignTop Command
 
-        private void AlignTop_Executed(object sender, ExecutedRoutedEventArgs e)
+        void AlignCenterX()
         {
-            var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                                where item.ParentID == Guid.Empty
-                                select item;
+            Align(
+                r => r.X + r.Width / 2,
+                (r, coord) => new Rect(coord - r.Width / 2, r.Y, r.Width, r.Height));
+        }
 
-            if (selectedItems.Count() > 1)
+        void AlignCenterY()
+        {
+            Align(
+                r => r.Y + r.Height / 2,
+                (r, coord) => new Rect(r.X, coord - r.Height / 2, r.Width, r.Height));
+        }
+
+        void Align(
+            Func<Rect, double> getter,
+            Func<Rect, double, Rect> setter)
+        {
+            var target = diagram.ActiveItem as DiagramNode;
+            if (target != null)
             {
-                double top = Canvas.GetTop(selectedItems.First());
-
-                foreach (DesignerItem item in selectedItems)
+                var alignedCoord = getter(target.Bounds);
+                foreach (var node in diagram.Selection.Nodes)
                 {
-                    double delta = top - Canvas.GetTop(item);
-                    foreach (DesignerItem di in SelectionService.GetGroupMembers(item))
-                    {
-                        Canvas.SetTop(di, Canvas.GetTop(di) + delta);
-                    }
+                    if (node == target)
+                        continue;
+                    node.Bounds = setter(node.Bounds, alignedCoord);
                 }
             }
+        }
+
+        private void AlignTop_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            {
+                Align(
+                    r => r.Top,
+                    (r, coord) => new Rect(r.X, coord, r.Width, r.Height));
+            }
+
         }
 
         private void Align_Enabled(object sender, CanExecuteRoutedEventArgs e)
@@ -491,7 +334,7 @@ namespace Test2
 
 
             //e.CanExecute = groupedItem.Count() > 1;
-            e.CanExecute = true;
+            e.CanExecute = diagram.Selection.GetSize() > 0;
         }
 
         #endregion
@@ -525,23 +368,9 @@ namespace Test2
 
         private void AlignBottom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                                where item.ParentID == Guid.Empty
-                                select item;
-
-            if (selectedItems.Count() > 1)
-            {
-                double bottom = Canvas.GetTop(selectedItems.First()) + selectedItems.First().Height;
-
-                foreach (DesignerItem item in selectedItems)
-                {
-                    double delta = bottom - (Canvas.GetTop(item) + item.Height);
-                    foreach (DesignerItem di in SelectionService.GetGroupMembers(item))
-                    {
-                        Canvas.SetTop(di, Canvas.GetTop(di) + delta);
-                    }
-                }
-            }
+            Align(
+                r => r.Bottom,
+                (r, coord) => new Rect(r.X, coord - r.Height, r.Width, r.Height));
         }
 
         #endregion
@@ -550,23 +379,9 @@ namespace Test2
 
         private void AlignLeft_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                                where item.ParentID == Guid.Empty
-                                select item;
-
-            if (selectedItems.Count() > 1)
-            {
-                double left = Canvas.GetLeft(selectedItems.First());
-
-                foreach (DesignerItem item in selectedItems)
-                {
-                    double delta = left - Canvas.GetLeft(item);
-                    foreach (DesignerItem di in SelectionService.GetGroupMembers(item))
-                    {
-                        Canvas.SetLeft(di, Canvas.GetLeft(di) + delta);
-                    }
-                }
-            }
+            Align(
+                r => r.Left,
+                (r, coord) => new Rect(coord, r.Y, r.Width, r.Height));
         }
 
         #endregion
@@ -600,23 +415,9 @@ namespace Test2
 
         private void AlignRight_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
-                                where item.ParentID == Guid.Empty
-                                select item;
-
-            if (selectedItems.Count() > 1)
-            {
-                double right = Canvas.GetLeft(selectedItems.First()) + selectedItems.First().Width;
-
-                foreach (DesignerItem item in selectedItems)
-                {
-                    double delta = right - (Canvas.GetLeft(item) + item.Width);
-                    foreach (DesignerItem di in SelectionService.GetGroupMembers(item))
-                    {
-                        Canvas.SetLeft(di, Canvas.GetLeft(di) + delta);
-                    }
-                }
-            }
+            Align(
+                r => r.Right,
+                (r, coord) => new Rect(coord - r.Width, r.Y, r.Width, r.Height));
         }
 
         #endregion
@@ -625,6 +426,7 @@ namespace Test2
 
         private void DistributeHorizontal_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            diagram.DiagramItem.Arrange.AlignCenterX
             var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
                                 where item.ParentID == Guid.Empty
                                 let itemLeft = Canvas.GetLeft(item)
@@ -638,7 +440,7 @@ namespace Test2
                 double sumWidth = 0;
                 foreach (DesignerItem item in selectedItems)
                 {
-                    left = Math.Min(left, Canvas.GetLeft(item));
+                    left = Math.Min(left, diagram.);
                     right = Math.Max(right, Canvas.GetLeft(item) + item.Width);
                     sumWidth += item.Width;
                 }
@@ -711,16 +513,14 @@ namespace Test2
         #endregion
 
         #region SelectAll Command
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public UIElementCollection Children { get; }
+
         private void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            this.SelectionSelectAll();
+            diagram.SelectAll();
         }
         internal void ClearSelection()
         {
-            CurrentSelection.ForEach(item => item.IsSelected = false);
-            CurrentSelection.Clear();
+            diagram.Selection.Clear();
         }
         internal void SelectionSelectAll()
         {
@@ -728,16 +528,7 @@ namespace Test2
             CurrentSelection.AddRange(this.Children.OfType<ISelectable>());
             CurrentSelection.ForEach(item => item.IsSelected = true);
         }
-        internal List<ISelectable> CurrentSelection
-        {
-            get
-            {
-                if (currentSelection == null)
-                    currentSelection = new List<ISelectable>();
 
-                return currentSelection;
-            }
-        }
 
         #endregion
 
@@ -801,11 +592,11 @@ namespace Test2
             return null;
         }
 
-        private XElement SerializeDesignerItems(IEnumerable<DesignerItem> designerItems)
+        private XElement SerializeDesignerItems(IEnumerable<DiagramNode> designerItems)
         {
-            XElement serializedItems = new XElement("DesignerItems",
+            XElement serializedItems = new XElement("DiagramNode",
                                        from item in designerItems
-                                       let contentXaml = XamlWriter.Save(((DesignerItem)item).Content)
+                                       let contentXaml = XamlWriter.Save(((DiagramNode)item).Content)
                                        select new XElement("DesignerItem",
                                                   new XElement("Left", Canvas.GetLeft(item)),
                                                   new XElement("Top", Canvas.GetTop(item)),
