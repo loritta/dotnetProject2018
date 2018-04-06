@@ -27,7 +27,8 @@ namespace Test2
         public MainWindow()
         {
             InitializeComponent();
-            Globals.diagram = diagram;
+            
+            Loaded += new RoutedEventHandler(MainWindow_Loaded);
             // load the built in nodes list
             //shapeList.ItemsSource = MindFusion.Diagramming.Wpf.Shape.Shapes.Cast<MindFusion.Diagramming.Wpf.Shape>().Select(
             //  shape => new ShapeNode { Shape = shape, Bounds = new Rect(0, 0, 40, 40) });
@@ -43,6 +44,11 @@ namespace Test2
             diagram.RoundedLinksRadius = 10;
             diagram.LinkSegments = 3;
             diagram.Behavior = Behavior.Modify;
+        }
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Globals.Diagram = diagram;
+            Commands.BindCommandsToDiagram(diagram);
         }
         private void diagram_Drop(object sender, DragEventArgs e)
         {
@@ -121,6 +127,16 @@ namespace Test2
         {
 
         }
+        #region New Command
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+          
+        }
 
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

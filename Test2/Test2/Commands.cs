@@ -19,103 +19,176 @@ namespace Test2
 {
     public class Commands
     {
-        private List<ISelectable> currentSelection;
-        private Diagram diagram = Globals.diagram;
 
-        public static RoutedCommand Group = new RoutedCommand();
-        public static RoutedCommand Ungroup = new RoutedCommand();
-        public static RoutedCommand BringForward = new RoutedCommand();
-        public static RoutedCommand BringToFront = new RoutedCommand();
-        public static RoutedCommand SendBackward = new RoutedCommand();
-        public static RoutedCommand SendToBack = new RoutedCommand();
-        public static RoutedCommand AlignTop = new RoutedCommand();
-        public static RoutedCommand AlignVerticalCenters = new RoutedCommand();
-        public static RoutedCommand AlignBottom = new RoutedCommand();
-        public static RoutedCommand AlignLeft = new RoutedCommand();
-        public static RoutedCommand AlignHorizontalCenters = new RoutedCommand();
-        public static RoutedCommand AlignRight = new RoutedCommand();
-        public static RoutedCommand DistributeHorizontal = new RoutedCommand();
-        public static RoutedCommand DistributeVertical = new RoutedCommand();
-        public static RoutedCommand SelectAll = new RoutedCommand();
+        
+        private static RoutedUICommand _new;
+        private static RoutedUICommand _open;
+        private static RoutedUICommand _save;
+        private static RoutedUICommand _print;
+        private static RoutedUICommand _cut;
+        private static RoutedUICommand _copy;
+        private static RoutedUICommand _paste;
+        private static RoutedUICommand _delete;
+        private static RoutedUICommand _group;
+        private static RoutedUICommand _ungroup;
+        private static RoutedUICommand _bringForward;
+        private static RoutedUICommand _bringToFront;
+        private static RoutedUICommand _sendBackward;
+        private static RoutedUICommand _sendToBack;
+        private static RoutedUICommand _alignTop;
+        private static RoutedUICommand _alignVerticalCenters;
+        private static RoutedUICommand _alignBottom;
+        private static RoutedUICommand _alignLeft;
+        private static RoutedUICommand _alignHorizontalCenters;
+        private static RoutedUICommand _alignRight;
+        private static RoutedUICommand _distributeHorizontal;
+        private static RoutedUICommand _distributeVertical;
+        private static RoutedUICommand _selectAll;
 
-        public Commands()
+        static Commands()
         {
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, Copy_Executed, Copy_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, Paste_Executed, Paste_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, Delete_Executed, Delete_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(Group, Group_Executed, Group_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(Ungroup, Ungroup_Executed, Ungroup_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(BringForward, BringForward_Executed, Order_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(BringToFront, BringToFront_Executed, Order_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(SendBackward, SendBackward_Executed, Order_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(SendToBack, SendToBack_Executed, Order_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignTop, AlignTop_Executed, Align_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignVerticalCenters, AlignVerticalCenters_Executed, Align_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignBottom, AlignBottom_Executed, Align_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignLeft, AlignLeft_Executed, Align_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignHorizontalCenters, AlignHorizontalCenters_Executed, Align_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(AlignRight, AlignRight_Executed, Align_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(DistributeHorizontal, DistributeHorizontal_Executed, Distribute_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
-            Globals.diagram.CommandBindings.Add(new CommandBinding(SelectAll, SelectAll_Executed));
+            _delete = new RoutedUICommand("Delete elements", "Delete", typeof(Commands));
+            _paste = new RoutedUICommand("Paste elements", "Paste", typeof(Commands));
+            _copy = new RoutedUICommand("Copy elements", "Copy", typeof(Commands));
+            _cut = new RoutedUICommand("Cut elements", "Cut", typeof(Commands));
+            _print = new RoutedUICommand("Print page", "Print", typeof(Commands));
+            _save = new RoutedUICommand("Save page", "Save", typeof(Commands));
+            _open = new RoutedUICommand("Open page", "Open", typeof(Commands));
+            _new = new RoutedUICommand("New page", "New", typeof(Commands));
+            _group = new RoutedUICommand("Group elements", "Group", typeof(Commands));
+            _ungroup = new RoutedUICommand("Ungroup elements", "Ungoup", typeof(Commands));
+            _bringForward = new RoutedUICommand("Bring Forward elements", "BringForward", typeof(Commands));
+            _bringToFront = new RoutedUICommand("BringToFront elements", "BringToFront", typeof(Commands));
+            _sendBackward = new RoutedUICommand("SendBackward elements", "SendBackward", typeof(Commands));
+            _sendToBack = new RoutedUICommand("SendToBack elements", "SendToBack", typeof(Commands));
+            _alignTop = new RoutedUICommand("AlignTop elements", "AlignTop", typeof(Commands));
+            _alignVerticalCenters = new RoutedUICommand("AlignVerticalCenters elements", "AlignVerticalCenters", typeof(Commands));
+            _alignBottom = new RoutedUICommand("AlignBottom elements", "AlignBottom", typeof(Commands));
+            _alignLeft = new RoutedUICommand("AlignLeft elements", "AlignLeft", typeof(Commands));
+            _alignHorizontalCenters = new RoutedUICommand("AlignHorizontalCenters elements", "AlignHorizontalCenters", typeof(Commands));
+            _alignRight = new RoutedUICommand("AlignRight elements", "AlignRight", typeof(Commands));
+            _distributeHorizontal = new RoutedUICommand("DistributeHorizontal elements", "DistributeHorizontal", typeof(Commands));
+            _distributeVertical = new RoutedUICommand("DistributeVertical elements", "DistributeVertical", typeof(Commands));
+            _selectAll = new RoutedUICommand("SelectAll elements", "SelectAll", typeof(Commands));
+        }
+
+        public static RoutedUICommand Group { get => _group;  }
+        public static RoutedUICommand Ungroup { get => _ungroup;  }
+        public static RoutedUICommand BringForward { get => _bringForward;  }
+        public static RoutedUICommand BringToFront { get => _bringToFront; }
+        public static RoutedUICommand SendBackward { get => _sendBackward;  }
+        public static RoutedUICommand SendToBack { get => _sendToBack;  }
+        public static RoutedUICommand AlignTop { get => _alignTop; }
+        public static RoutedUICommand AlignVerticalCenters { get => _alignVerticalCenters;  }
+        public static RoutedUICommand AlignBottom { get => _alignBottom;  }
+        public static RoutedUICommand AlignLeft { get => _alignLeft;  }
+        public static RoutedUICommand AlignHorizontalCenters { get => _alignHorizontalCenters; }
+        public static RoutedUICommand AlignRight { get => _alignRight;  }
+        public static RoutedUICommand DistributeHorizontal { get => _distributeHorizontal;  }
+        public static RoutedUICommand DistributeVertical { get => _distributeVertical;  }
+        public static RoutedUICommand SelectAll { get => _selectAll;  }
+        public static RoutedUICommand New { get => _new; }
+        public static RoutedUICommand Open { get => _open;  }
+        public static RoutedUICommand Save { get => _save;}
+        public static RoutedUICommand Print { get => _print;  }
+        public static RoutedUICommand Cut { get => _cut; }
+        public static RoutedUICommand Copy { get => _copy;  }
+        public static RoutedUICommand Paste { get => _paste; }
+        public static RoutedUICommand Delete { get => _delete; }
+
+        public static void BindCommandsToDiagram(Diagram diagram)
+        {
+            diagram.CommandBindings.Add(new CommandBinding(New, New_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Open, Open_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Save, Save_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Print, Print_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Cut, Cut_Executed, Cut_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Copy, Copy_Executed, Copy_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Paste, Paste_Executed, Paste_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Delete, Delete_Executed, Delete_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Group, Group_Executed, Group_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Ungroup, Ungroup_Executed, Ungroup_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(BringForward, BringForward_Executed, Order_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(BringToFront, BringToFront_Executed, Order_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(SendBackward, SendBackward_Executed, Order_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(SendToBack, SendToBack_Executed, Order_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(AlignTop, AlignTop_Executed, Align_Enabled));
+          // diagram.CommandBindings.Add(new CommandBinding(AlignVerticalCenters, AlignVerticalCenters_Executed, Align_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(AlignBottom, AlignBottom_Executed, Align_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(AlignLeft, AlignLeft_Executed, Align_Enabled));
+           // diagram.CommandBindings.Add(new CommandBinding(AlignHorizontalCenters, AlignHorizontalCenters_Executed, Align_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(AlignRight, AlignRight_Executed, Align_Enabled));
+          // diagram.CommandBindings.Add(new CommandBinding(DistributeHorizontal, DistributeHorizontal_Executed, Distribute_Enabled));
+          //  diagram.CommandBindings.Add(new CommandBinding(DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(SelectAll, SelectAll_Executed));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
 
-            Globals.diagram.AllowDrop = true;
+            diagram.AllowDrop = true;
             Clipboard.Clear();
         }
         #region New Command
 
-        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void New_Executed (object sender, ExecutedRoutedEventArgs e)
         {
-            Globals.diagram.ClearAll();
-            Globals.diagram.Selection.Clear();
+            Globals.Diagram.ClearAll();
+            
         }
 
         #endregion
 
         #region Open Command
 
-        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
                 openFileDialog.Filter = "XML files (*.xml)|*.xml";
-            diagram.LoadFromXml(openFileDialog.FileName);
+
+            try
+            {
+                Globals.Diagram.LoadFromXml(openFileDialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.StackTrace, ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
 
         #region Save Command
 
-        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 saveFileDialog.Filter = "XML files (*.xml)|*.xml";
-            diagram.SaveToXml(saveFileDialog.FileName);
+            try
+            {
+                Globals.Diagram.SaveToXml(saveFileDialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.StackTrace, ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
 
         #region Print Command
 
-        private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            diagram.Selection.Dispose();
+            Globals.Diagram.Selection.Dispose();
 
             PrintDialog printDialog = new PrintDialog();
 
             if (true == printDialog.ShowDialog())
             {
-                printDialog.PrintVisual(diagram, "WPF Diagram");
+                printDialog.PrintVisual(Globals.Diagram, "WPF Diagram");
             }
             //attention to see if it works and then delete the top
-            diagram.Print();
+            Globals.Diagram.Print();
         }
 
 
@@ -123,29 +196,29 @@ namespace Test2
 
         #region Copy Command
 
-        private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //to test
-            diagram.CopyToClipboard(false);
+            Globals.Diagram.CopyToClipboard(false);
         }
 
-        private void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
 
         #region Paste Command
 
-        private void Paste_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Paste_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Vector offset = new Vector(1, 1);
-            diagram.PasteFromClipboard(offset, true);
+            Globals.Diagram.PasteFromClipboard(offset, true);
             Clipboard.Clear();
         }
-      
-        private void Paste_Enabled(object sender, CanExecuteRoutedEventArgs e)
+
+        public static void Paste_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = Clipboard.ContainsData(DataFormats.Xaml);
         }
@@ -154,56 +227,57 @@ namespace Test2
 
         #region Delete Command
 
-        private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-             diagram.Selection.Clear(); 
+            Globals.Diagram.Selection.Clear(); 
 
         }
 
-        private void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+                e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
+            
         }
 
         #endregion
 
         #region Cut Command
 
-        private void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.CutToClipboard(false, true);
+        public static void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.CutToClipboard(false, true);
 
-        private void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Nodes.Count() > 0;
         }
 
         #endregion
 
         #region Group Command
 
-        private void Group_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Group_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (diagram.Selection.Nodes.Count > 1)
+            if (Globals.Diagram.Selection.Nodes.Count > 1)
             {
-                var groupNode = diagram.Factory.CreateShapeNode(0, 0, 1, 1);
+                var groupNode = Globals.Diagram.Factory.CreateShapeNode(0, 0, 1, 1);
                 groupNode.ZBottom(false);
                 groupNode.Transparent = true;
 
                 groupNode.HandlesStyle = HandlesStyle.RoundAndSquare2;
                 //to ne tested
-                diagram.ActiveItemHandlesStyle.HandleBrush = Brushes.LightBlue;
-                diagram.ActiveItemHandlesStyle.DashPen.Brush = Brushes.LightBlue;
+                Globals.Diagram.ActiveItemHandlesStyle.HandleBrush = Brushes.LightBlue;
+                Globals.Diagram.ActiveItemHandlesStyle.DashPen.Brush = Brushes.LightBlue;
                 //
                 groupNode.HandlesStyle = HandlesStyle.MoveOnly;
 
-                CreateGroup(groupNode, diagram.Selection.Nodes);
+                CreateGroup(groupNode, Globals.Diagram.Selection.Nodes);
                 foreach (DiagramNode child in groupNode.SubordinateGroup.AttachedNodes)
                     child.Locked = true;
                 groupNode.SubordinateGroup.AutoDeleteItems = true;
-                diagram.Selection.Change(groupNode);
+                Globals.Diagram.Selection.Change(groupNode);
             }
         }
 
-        private void CreateGroup(DiagramNode node, DiagramNodeCollection children)
+        public static void CreateGroup(DiagramNode node, DiagramNodeCollection children)
         {
             Rect r = Rect.Empty;
             foreach (DiagramNode child in children)
@@ -219,7 +293,7 @@ namespace Test2
         }
 
 
-        private void Group_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Group_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
@@ -228,9 +302,9 @@ namespace Test2
 
         #region Ungroup Command
 
-        private void Ungroup_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void Ungroup_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var groupContainer = diagram.ActiveItem as ShapeNode;
+            var groupContainer = Globals.Diagram.ActiveItem as ShapeNode;
             if (groupContainer != null &&
                   groupContainer.SubordinateGroup != null)
             {
@@ -242,72 +316,72 @@ namespace Test2
                     node.Locked = false;
                     node.Detach();
                 }
-                diagram.Nodes.Remove(groupContainer);
+                Globals.Diagram.Nodes.Remove(groupContainer);
             }
         }
 
-        private void Ungroup_Enabled(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = diagram.Selection.GetSize() > 0;
+        public static void Ungroup_Enabled(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = Globals.Diagram.Selection.GetSize() > 0;
 
         #endregion
 
         #region BringForward Command
 
-        private void BringForward_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void BringForward_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            diagram.Selection.ZLevelUp(false);
+            Globals.Diagram.Selection.ZLevelUp(false);
         }
 
-        private void Order_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Order_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
 
         #region BringToFront Command
 
-        private void BringToFront_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZTop(false);
+        public static void BringToFront_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.Selection.ZTop(false);
 
         #endregion
 
         #region SendBackward Command
 
-        private void SendBackward_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZLevelDown(false);
+        public static void SendBackward_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.Selection.ZLevelDown(false);
 
         #endregion
 
         #region SendToBack Command
 
-        private void SendToBack_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZBottom(false);
+        public static void SendToBack_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.Selection.ZBottom(false);
 
 
         #endregion
 
         #region AlignTop Command
 
-        void AlignCenterX()
+        public static void AlignCenterX()
         {
             Align(
                 r => r.X + r.Width / 2,
                 (r, coord) => new Rect(coord - r.Width / 2, r.Y, r.Width, r.Height));
         }
 
-        void AlignCenterY()
+        public static void AlignCenterY()
         {
             Align(
                 r => r.Y + r.Height / 2,
                 (r, coord) => new Rect(r.X, coord - r.Height / 2, r.Width, r.Height));
         }
 
-        void Align(
+        public static void Align(
             Func<Rect, double> getter,
             Func<Rect, double, Rect> setter)
         {
-            var target = diagram.ActiveItem as DiagramNode;
+            var target = Globals.Diagram.ActiveItem as DiagramNode;
             if (target != null)
             {
                 var alignedCoord = getter(target.Bounds);
-                foreach (var node in diagram.Selection.Nodes)
+                foreach (var node in Globals.Diagram.Selection.Nodes)
                 {
                     if (node == target)
                         continue;
@@ -316,7 +390,7 @@ namespace Test2
             }
         }
 
-        private void AlignTop_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void AlignTop_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             {
                 Align(
@@ -326,7 +400,7 @@ namespace Test2
 
         }
 
-        private void Align_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Align_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
             //var groupedItem = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
             //                  where item.ParentID == Guid.Empty
@@ -334,14 +408,14 @@ namespace Test2
 
 
             //e.CanExecute = groupedItem.Count() > 1;
-            e.CanExecute = diagram.Selection.GetSize() > 0;
+            e.CanExecute = Globals.Diagram.Selection.GetSize() > 0;
         }
 
         #endregion
 
         #region AlignVerticalCenters Command
 
-        private void AlignVerticalCenters_Executed(object sender, ExecutedRoutedEventArgs e)
+        /*public static void AlignVerticalCenters_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
                                 where item.ParentID == Guid.Empty
@@ -360,13 +434,13 @@ namespace Test2
                     }
                 }
             }
-        }
+        }*/
 
         #endregion
 
         #region AlignBottom Command
 
-        private void AlignBottom_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void AlignBottom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Align(
                 r => r.Bottom,
@@ -377,7 +451,7 @@ namespace Test2
 
         #region AlignLeft Command
 
-        private void AlignLeft_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void AlignLeft_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Align(
                 r => r.Left,
@@ -388,7 +462,7 @@ namespace Test2
 
         #region AlignHorizontalCenters Command
 
-        private void AlignHorizontalCenters_Executed(object sender, ExecutedRoutedEventArgs e)
+        /*public static void AlignHorizontalCenters_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
                                 where item.ParentID == Guid.Empty
@@ -407,13 +481,13 @@ namespace Test2
                     }
                 }
             }
-        }
+        }*/
 
         #endregion
 
         #region AlignRight Command
 
-        private void AlignRight_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void AlignRight_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Align(
                 r => r.Right,
@@ -424,7 +498,7 @@ namespace Test2
 
         #region DistributeHorizontal Command
 
-        private void DistributeHorizontal_Executed(object sender, ExecutedRoutedEventArgs e)
+        /*public static void DistributeHorizontal_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             diagram.DiagramItem.Arrange.AlignCenterX
             var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
@@ -460,7 +534,7 @@ namespace Test2
             }
         }
 
-        private void Distribute_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        public static void Distribute_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
             //var groupedItem = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
             //                  where item.ParentID == Guid.Empty
@@ -475,7 +549,7 @@ namespace Test2
 
         #region DistributeVertical Command
 
-        private void DistributeVertical_Executed(object sender, ExecutedRoutedEventArgs e)
+        public static void DistributeVertical_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var selectedItems = from item in SelectionService.CurrentSelection.OfType<DesignerItem>()
                                 where item.ParentID == Guid.Empty
@@ -508,27 +582,23 @@ namespace Test2
                     offset = offset + item.Height + distance;
                 }
             }
-        }
+        }*/
 
         #endregion
 
         #region SelectAll Command
 
-        private void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            diagram.SelectAll();
-        }
+        public static void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
+        
+            {
+                foreach (var item in Globals.Diagram.Items)
+                Globals.Diagram.Selection.AddItem(item);
+            }
+        
         internal void ClearSelection()
         {
-            diagram.Selection.Clear();
+            Globals.Diagram.Selection.Clear();
         }
-        internal void SelectionSelectAll()
-        {
-            ClearSelection();
-            CurrentSelection.AddRange(this.Children.OfType<ISelectable>());
-            CurrentSelection.ForEach(item => item.IsSelected = true);
-        }
-
 
         #endregion
 
@@ -554,234 +624,24 @@ namespace Test2
             return null;
         }
 
-        void SaveFile(XElement xElement)
-        {
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "Files (*.xml)|*.xml|All Files (*.*)|*.*";
-            if (saveFile.ShowDialog() == true)
-            {
-                try
-                {
-                    xElement.Save(saveFile.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.StackTrace, ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
+       
 
-        private XElement LoadSerializedDataFromClipBoard()
-        {
-            if (Clipboard.ContainsData(DataFormats.Xaml))
-            {
-                String clipboardData = Clipboard.GetData(DataFormats.Xaml) as String;
+        
 
-                if (String.IsNullOrEmpty(clipboardData))
-                    return null;
-                try
-                {
-                    return XElement.Load(new StringReader(clipboardData));
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+        
 
-            return null;
-        }
+        
 
-        private XElement SerializeDesignerItems(IEnumerable<DiagramNode> designerItems)
-        {
-            XElement serializedItems = new XElement("DiagramNode",
-                                       from item in designerItems
-                                       let contentXaml = XamlWriter.Save(((DiagramNode)item).Content)
-                                       select new XElement("DesignerItem",
-                                                  new XElement("Left", Canvas.GetLeft(item)),
-                                                  new XElement("Top", Canvas.GetTop(item)),
-                                                  new XElement("Width", item.Width),
-                                                  new XElement("Height", item.Height),
-                                                  new XElement("ID", item.ID),
-                                                  new XElement("zIndex", Canvas.GetZIndex(item)),
-                                                  new XElement("IsGroup", item.IsGroup),
-                                                  new XElement("ParentID", item.ParentID),
-                                                  new XElement("Content", contentXaml)
-                                              )
-                                   );
+        
 
-            return serializedItems;
-        }
+        
 
-        private XElement SerializeConnections(IEnumerable<Connection> connections)
-        {
-            var serializedConnections = new XElement("Connections",
-                           from connection in connections
-                           select new XElement("Connection",
-                                      new XElement("SourceID", connection.Source.ParentDesignerItem.ID),
-                                      new XElement("SinkID", connection.Sink.ParentDesignerItem.ID),
-                                      new XElement("SourceConnectorName", connection.Source.Name),
-                                      new XElement("SinkConnectorName", connection.Sink.Name),
-                                      new XElement("SourceArrowSymbol", connection.SourceArrowSymbol),
-                                      new XElement("SinkArrowSymbol", connection.SinkArrowSymbol),
-                                      new XElement("zIndex", Canvas.GetZIndex(connection))
-                                     )
-                                  );
+       
 
-            return serializedConnections;
-        }
+       
 
-        private static DesignerItem DeserializeDesignerItem(XElement itemXML, Guid id, double OffsetX, double OffsetY)
-        {
-            DesignerItem item = new DesignerItem(id);
-            item.Width = Double.Parse(itemXML.Element("Width").Value, CultureInfo.InvariantCulture);
-            item.Height = Double.Parse(itemXML.Element("Height").Value, CultureInfo.InvariantCulture);
-            item.ParentID = new Guid(itemXML.Element("ParentID").Value);
-            item.IsGroup = Boolean.Parse(itemXML.Element("IsGroup").Value);
-            Canvas.SetLeft(item, Double.Parse(itemXML.Element("Left").Value, CultureInfo.InvariantCulture) + OffsetX);
-            Canvas.SetTop(item, Double.Parse(itemXML.Element("Top").Value, CultureInfo.InvariantCulture) + OffsetY);
-            Canvas.SetZIndex(item, Int32.Parse(itemXML.Element("zIndex").Value));
-            Object content = XamlReader.Load(XmlReader.Create(new StringReader(itemXML.Element("Content").Value)));
-            item.Content = content;
-            return item;
-        }
 
-        private void CopyCurrentSelection()
-        {
-            IEnumerable<DesignerItem> selectedDesignerItems =
-                this.SelectionService.CurrentSelection.OfType<DesignerItem>();
-
-            List<Connection> selectedConnections =
-                this.SelectionService.CurrentSelection.OfType<Connection>().ToList();
-
-            foreach (Connection connection in this.Children.OfType<Connection>())
-            {
-                if (!selectedConnections.Contains(connection))
-                {
-                    DesignerItem sourceItem = (from item in selectedDesignerItems
-                                               where item.ID == connection.Source.ParentDesignerItem.ID
-                                               select item).FirstOrDefault();
-
-                    DesignerItem sinkItem = (from item in selectedDesignerItems
-                                             where item.ID == connection.Sink.ParentDesignerItem.ID
-                                             select item).FirstOrDefault();
-
-                    if (sourceItem != null &&
-                        sinkItem != null &&
-                        BelongToSameGroup(sourceItem, sinkItem))
-                    {
-                        selectedConnections.Add(connection);
-                    }
-                }
-            }
-
-            XElement designerItemsXML = SerializeDesignerItems(selectedDesignerItems);
-            XElement connectionsXML = SerializeConnections(selectedConnections);
-
-            XElement root = new XElement("Root");
-            root.Add(designerItemsXML);
-            root.Add(connectionsXML);
-
-            root.Add(new XAttribute("OffsetX", 10));
-            root.Add(new XAttribute("OffsetY", 10));
-
-            Clipboard.Clear();
-            Clipboard.SetData(DataFormats.Xaml, root);
-        }
-
-        private void DeleteCurrentSelection()
-        {
-            foreach (Connection connection in SelectionService.CurrentSelection.OfType<Connection>())
-            {
-                this.Children.Remove(connection);
-            }
-
-            foreach (DesignerItem item in SelectionService.CurrentSelection.OfType<DesignerItem>())
-            {
-                Control cd = item.Template.FindName("PART_ConnectorDecorator", item) as Control;
-
-                List<Connector> connectors = new List<Connector>();
-                GetConnectors(cd, connectors);
-
-                foreach (Connector connector in connectors)
-                {
-                    foreach (Connection con in connector.Connections)
-                    {
-                        this.Children.Remove(con);
-                    }
-                }
-                this.Children.Remove(item);
-            }
-
-            SelectionService.ClearSelection();
-            UpdateZIndex();
-        }
-
-        private void UpdateZIndex()
-        {
-            List<UIElement> ordered = (from UIElement item in this.Children
-                                       orderby Canvas.GetZIndex(item as UIElement)
-                                       select item as UIElement).ToList();
-
-            for (int i = 0; i < ordered.Count; i++)
-            {
-                Canvas.SetZIndex(ordered[i], i);
-            }
-        }
-
-        private static Rect GetBoundingRectangle(IEnumerable<DesignerItem> items)
-        {
-            double x1 = Double.MaxValue;
-            double y1 = Double.MaxValue;
-            double x2 = Double.MinValue;
-            double y2 = Double.MinValue;
-
-            foreach (DesignerItem item in items)
-            {
-                x1 = Math.Min(Canvas.GetLeft(item), x1);
-                y1 = Math.Min(Canvas.GetTop(item), y1);
-
-                x2 = Math.Max(Canvas.GetLeft(item) + item.Width, x2);
-                y2 = Math.Max(Canvas.GetTop(item) + item.Height, y2);
-            }
-
-            return new Rect(new Point(x1, y1), new Point(x2, y2));
-        }
-
-        private void GetConnectors(DependencyObject parent, List<Connector> connectors)
-        {
-            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-            for (int i = 0; i < childrenCount; i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
-                if (child is Connector)
-                {
-                    connectors.Add(child as Connector);
-                }
-                else
-                    GetConnectors(child, connectors);
-            }
-        }
-
-        private Connector GetConnector(Guid itemID, String connectorName)
-        {
-            DesignerItem designerItem = (from item in this.Children.OfType<DesignerItem>()
-                                         where item.ID == itemID
-                                         select item).FirstOrDefault();
-
-            Control connectorDecorator = designerItem.Template.FindName("PART_ConnectorDecorator", designerItem) as Control;
-            connectorDecorator.ApplyTemplate();
-
-            return connectorDecorator.Template.FindName(connectorName, connectorDecorator) as Connector;
-        }
-
-        private bool BelongToSameGroup(IGroupable item1, IGroupable item2)
-        {
-            IGroupable root1 = SelectionService.GetGroupRoot(item1);
-            IGroupable root2 = SelectionService.GetGroupRoot(item2);
-
-            return (root1.ID == root2.ID);
-        }
+      
 
         #endregion
     }
