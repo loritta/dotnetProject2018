@@ -20,7 +20,7 @@
       </line>
     </outline>
     <decorations>
-      <line color="#FF000000" dash-style="Solid" width="1">
+      <line dash-style="Solid" width="-1">
         <point>0, 30</point>
         <point>100, 30</point>
       </line>
@@ -32,11 +32,11 @@
             <point>0, 0</point>
             <point>100, 0</point>
           </line>
-          <line color="#FF000000" dash-style="Solid" width="-1">
+          <line dash-style="Solid" width="-1">
             <point>100, 0</point>
             <point>100, 30</point>
           </line>
-          <line color="#FF000000" dash-style="Solid" width="-1">
+          <line dash-style="Solid" width="-1">
             <point>100, 30</point>
             <point>0, 30</point>
           </line>

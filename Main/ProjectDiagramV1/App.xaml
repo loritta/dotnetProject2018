@@ -8,7 +8,10 @@
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLMember.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLPackage.xaml" />
                 <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLSeparator.xaml" />
-                <ResourceDictionary Source="CustomNodes/Resources/CrowsFootEntity.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CrowsFootEntity.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CFPrimaryKey.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CFAttribute.xaml" />
+                <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CFPrimaryKeySeparator.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

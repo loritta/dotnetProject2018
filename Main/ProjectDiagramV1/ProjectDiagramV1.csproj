@@ -78,7 +78,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CustomNodes\Resources\CrowsFootEntity.xaml">
+    <Page Include="CustomNodes\Resources\CrowsFoot\CFAttribute.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CFPrimaryKey.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CFPrimaryKeySeparator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CrowsFootEntity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,10 +118,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomNodes\CrowsFootDb\CFAttributeNode.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CFPrimaryKeyNode.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CFPrimaryKeySeparatorNode.cs" />
     <Compile Include="CustomNodes\UMLClass\UMLInterfaceNode.cs" />
     <Compile Include="CustomNodes\UMLClass\UMLMember.cs" />
     <Compile Include="CustomNodes\UMLClass\UMLClassNode.cs" />
-    <Compile Include="CustomNodes\CrowsFootEntity.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CrowsFootEntity.cs" />
     <Compile Include="CustomNodes\UMLClass\UMLPackageNode.cs" />
     <Compile Include="CustomNodes\UMLClass\UMLSeparatorNode.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -177,6 +192,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\MetroDark\HowToApplyTheme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CustomNodes\Resources\CrowsFoot\PrimaryKey.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,10 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ProjectDiagramV1">
 
-    <Style TargetType="local:UMLMember">
+    <Style TargetType="local:CFPrimaryKeyNode">
         <Setter Property="Template">
             <Setter.Value>
-                <DataTemplate DataType="local:UMLMember">
+                <DataTemplate DataType="local:CFPrimaryKeyNode">
+                    
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -15,11 +16,17 @@
                             <RowDefinition Height="25"></RowDefinition>
                         </Grid.RowDefinitions>
 
-         
                         <TextBox AcceptsReturn="False" FontFamily="Verdana" FontSize="12" 
-                                 Foreground="Black" Text="{Binding MemberName}" 
-                                 MaxLength="30"/>
+                                 Foreground="Black" Text="{Binding PrimaryKeyName}" 
+                                 MaxLength="30" TextAlignment="Left" Padding="25,0,0,0"
+                                 VerticalAlignment="Center">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="PrimaryKey.png" AlignmentX="Left" 
+                                            AlignmentY="Center"  Stretch="Uniform"></ImageBrush>
+                            </TextBox.Background>
+                        </TextBox>
                     </Grid>
+
                 </DataTemplate>
             </Setter.Value>
         </Setter>

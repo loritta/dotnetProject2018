@@ -102,6 +102,20 @@ namespace ProjectDiagramV1
                 link.HeadShape = ArrowHeads.Triangle;
                 ConnectToNearbyNode(link);
             }
+            if (node.Shape.Id == "RelationshipLink")
+            {
+                // replace the dummy connector node with a DiagramLink
+                var bounds = node.Bounds;
+                diagram.Items.Remove(node);
+
+                var link = diagram.Factory.CreateDiagramLink(
+                    bounds.TopLeft, bounds.BottomRight);
+                link.SegmentCount = 2;
+                link.Shape = LinkShape.Cascading;
+                link.HeadShape = ArrowHeads.DefaultFlow; // might need a custom arrowhead here, supposed to be a straight line with 2
+                link.BaseShape = ArrowHeads.RevWithLine; // vertical || across (see visio)
+                ConnectToNearbyNode(link);
+            }
             else
             {
                 node.AnchorPattern = AnchorPattern.Decision2In2Out;
@@ -163,7 +177,7 @@ namespace ProjectDiagramV1
                 };
                 diagram.Nodes.Add(node1);
             }
-
+            // 
             // Crow's foot nodes
             else if (node.Name.Equals("entityNode"))
             {
@@ -174,20 +188,29 @@ namespace ProjectDiagramV1
                 };
                 diagram.Nodes.Add(node1);
             }
-
-            else if (node.Shape.Equals(Shapes.DividedEvent))
+            else if (node.Name.Equals("primaryKeyNode"))
             {
-                var node1 = new CrowsFootEntity
+                var node1 = new CFPrimaryKeyNode
                 {
                     Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+
                 };
                 diagram.Nodes.Add(node1);
             }
-            else if (node.Shape.Equals(Shapes.Rectangle))
+            else if (node.Name.Equals("attributeNode"))
             {
-                var node1 = new UMLMember
+                var node1 = new CFAttributeNode
                 {
-                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 100),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+
+                };
+                diagram.Nodes.Add(node1);
+            }
+            else if (node.Name.Equals("primaryKeySeparatorNode"))
+            {
+                var node1 = new CFPrimaryKeySeparatorNode
+                {
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 5),
 
                 };
                 diagram.Nodes.Add(node1);
@@ -378,6 +401,12 @@ namespace ProjectDiagramV1
             attributeNode.Name = "attributeNode";
             attributeNode.Text = "";
 
+            /*
+            ShapeNode pkSeparatorNode = shapeList.Items.GetItemAt(3) as ShapeNode;
+            pkSeparatorNode.Name = "primaryKeySeparatorNode";
+            attributeNode.Text = "";
+            */
+
             // Primary key separator
             var primaryKeySeparatorShape = new MindFusion.Diagramming.Wpf.Shape(
                 null, // no borders
@@ -386,10 +415,11 @@ namespace ProjectDiagramV1
                     new LineTemplate(10, 50, 90, 50, Color.FromRgb(0,0,0), DashStyles.Dot, 1),
                 },
                 null,
-                FillRule.Nonzero, "primaryKeySeparator");
+                FillRule.Nonzero, "primaryKeySeparatorNode");
 
             var pkSeparatorListNode = new ShapeNode { Shape = primaryKeySeparatorShape };
             shapeList.Items.Add(pkSeparatorListNode);
+            pkSeparatorListNode.Name = "primaryKeySeparatorNode";
 
             // remove the text from the nodes, add a label instead (text shows on right)
             NodeListView.SetLabel(entityNode, "Entity");
@@ -407,7 +437,7 @@ namespace ProjectDiagramV1
                     //new LineTemplate(90, 50, 90, 90)
                 },
                 null,
-                FillRule.Nonzero, "Relationship");
+                FillRule.Nonzero, "RelationshipLink");
 
             var relationshipListNode = new ShapeNode { Shape = relationshipShape };
             NodeListView.SetLabel(relationshipListNode, "Relationship");
