@@ -20,8 +20,15 @@ namespace Test2
     public class Commands
     {
 
-        private static Diagram diagram = Globals.diagram;
+        
         private static RoutedUICommand _new;
+        private static RoutedUICommand _open;
+        private static RoutedUICommand _save;
+        private static RoutedUICommand _print;
+        private static RoutedUICommand _cut;
+        private static RoutedUICommand _copy;
+        private static RoutedUICommand _paste;
+        private static RoutedUICommand _delete;
         private static RoutedUICommand _group;
         private static RoutedUICommand _ungroup;
         private static RoutedUICommand _bringForward;
@@ -40,7 +47,14 @@ namespace Test2
 
         static Commands()
         {
-            _new = new RoutedUICommand("New page", "New_Executed", typeof(Commands));
+            _delete = new RoutedUICommand("Delete elements", "Delete", typeof(Commands));
+            _paste = new RoutedUICommand("Paste elements", "Paste", typeof(Commands));
+            _copy = new RoutedUICommand("Copy elements", "Copy", typeof(Commands));
+            _cut = new RoutedUICommand("Cut elements", "Cut", typeof(Commands));
+            _print = new RoutedUICommand("Print page", "Print", typeof(Commands));
+            _save = new RoutedUICommand("Save page", "Save", typeof(Commands));
+            _open = new RoutedUICommand("Open page", "Open", typeof(Commands));
+            _new = new RoutedUICommand("New page", "New", typeof(Commands));
             _group = new RoutedUICommand("Group elements", "Group", typeof(Commands));
             _ungroup = new RoutedUICommand("Ungroup elements", "Ungoup", typeof(Commands));
             _bringForward = new RoutedUICommand("Bring Forward elements", "BringForward", typeof(Commands));
@@ -74,17 +88,24 @@ namespace Test2
         public static RoutedUICommand DistributeVertical { get => _distributeVertical;  }
         public static RoutedUICommand SelectAll { get => _selectAll;  }
         public static RoutedUICommand New { get => _new; }
+        public static RoutedUICommand Open { get => _open;  }
+        public static RoutedUICommand Save { get => _save;}
+        public static RoutedUICommand Print { get => _print;  }
+        public static RoutedUICommand Cut { get => _cut; }
+        public static RoutedUICommand Copy { get => _copy;  }
+        public static RoutedUICommand Paste { get => _paste; }
+        public static RoutedUICommand Delete { get => _delete; }
 
-        public static void BindCommandsToDiagram()
+        public static void BindCommandsToDiagram(Diagram diagram)
         {
             diagram.CommandBindings.Add(new CommandBinding(New, New_Executed));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, Copy_Executed, Copy_Enabled));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, Paste_Executed, Paste_Enabled));
-            diagram.CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, Delete_Executed, Delete_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Open, Open_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Save, Save_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Print, Print_Executed));
+            diagram.CommandBindings.Add(new CommandBinding(Cut, Cut_Executed, Cut_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Copy, Copy_Executed, Copy_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Paste, Paste_Executed, Paste_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Delete, Delete_Executed, Delete_Enabled));
             diagram.CommandBindings.Add(new CommandBinding(Group, Group_Executed, Group_Enabled));
             diagram.CommandBindings.Add(new CommandBinding(Ungroup, Ungroup_Executed, Ungroup_Enabled));
             diagram.CommandBindings.Add(new CommandBinding(BringForward, BringForward_Executed, Order_Enabled));
@@ -109,8 +130,8 @@ namespace Test2
 
         public static void New_Executed (object sender, ExecutedRoutedEventArgs e)
         {
-            Globals.diagram.ClearAll();
-            Globals.diagram.Selection.Clear();
+            Globals.Diagram.ClearAll();
+            
         }
 
         #endregion
@@ -125,7 +146,7 @@ namespace Test2
 
             try
             {
-                diagram.LoadFromXml(openFileDialog.FileName);
+                Globals.Diagram.LoadFromXml(openFileDialog.FileName);
             }
             catch (Exception ex)
             {
@@ -144,7 +165,7 @@ namespace Test2
                 saveFileDialog.Filter = "XML files (*.xml)|*.xml";
             try
             {
-                diagram.SaveToXml(saveFileDialog.FileName);
+                Globals.Diagram.SaveToXml(saveFileDialog.FileName);
             }
             catch (Exception ex)
             {
@@ -158,16 +179,16 @@ namespace Test2
 
         public static void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            diagram.Selection.Dispose();
+            Globals.Diagram.Selection.Dispose();
 
             PrintDialog printDialog = new PrintDialog();
 
             if (true == printDialog.ShowDialog())
             {
-                printDialog.PrintVisual(diagram, "WPF Diagram");
+                printDialog.PrintVisual(Globals.Diagram, "WPF Diagram");
             }
             //attention to see if it works and then delete the top
-            diagram.Print();
+            Globals.Diagram.Print();
         }
 
 
@@ -178,12 +199,12 @@ namespace Test2
         public static void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //to test
-            diagram.CopyToClipboard(false);
+            Globals.Diagram.CopyToClipboard(false);
         }
 
         public static void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
@@ -193,7 +214,7 @@ namespace Test2
         public static void Paste_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Vector offset = new Vector(1, 1);
-            diagram.PasteFromClipboard(offset, true);
+            Globals.Diagram.PasteFromClipboard(offset, true);
             Clipboard.Clear();
         }
 
@@ -208,24 +229,25 @@ namespace Test2
 
         public static void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-             diagram.Selection.Clear(); 
+            Globals.Diagram.Selection.Clear(); 
 
         }
 
         public static void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+                e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
+            
         }
 
         #endregion
 
         #region Cut Command
 
-        public static void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.CutToClipboard(false, true);
+        public static void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.CutToClipboard(false, true);
 
         public static void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Nodes.Count() > 0;
         }
 
         #endregion
@@ -234,24 +256,24 @@ namespace Test2
 
         public static void Group_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (diagram.Selection.Nodes.Count > 1)
+            if (Globals.Diagram.Selection.Nodes.Count > 1)
             {
-                var groupNode = diagram.Factory.CreateShapeNode(0, 0, 1, 1);
+                var groupNode = Globals.Diagram.Factory.CreateShapeNode(0, 0, 1, 1);
                 groupNode.ZBottom(false);
                 groupNode.Transparent = true;
 
                 groupNode.HandlesStyle = HandlesStyle.RoundAndSquare2;
                 //to ne tested
-                diagram.ActiveItemHandlesStyle.HandleBrush = Brushes.LightBlue;
-                diagram.ActiveItemHandlesStyle.DashPen.Brush = Brushes.LightBlue;
+                Globals.Diagram.ActiveItemHandlesStyle.HandleBrush = Brushes.LightBlue;
+                Globals.Diagram.ActiveItemHandlesStyle.DashPen.Brush = Brushes.LightBlue;
                 //
                 groupNode.HandlesStyle = HandlesStyle.MoveOnly;
 
-                CreateGroup(groupNode, diagram.Selection.Nodes);
+                CreateGroup(groupNode, Globals.Diagram.Selection.Nodes);
                 foreach (DiagramNode child in groupNode.SubordinateGroup.AttachedNodes)
                     child.Locked = true;
                 groupNode.SubordinateGroup.AutoDeleteItems = true;
-                diagram.Selection.Change(groupNode);
+                Globals.Diagram.Selection.Change(groupNode);
             }
         }
 
@@ -282,7 +304,7 @@ namespace Test2
 
         public static void Ungroup_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var groupContainer = diagram.ActiveItem as ShapeNode;
+            var groupContainer = Globals.Diagram.ActiveItem as ShapeNode;
             if (groupContainer != null &&
                   groupContainer.SubordinateGroup != null)
             {
@@ -294,11 +316,11 @@ namespace Test2
                     node.Locked = false;
                     node.Detach();
                 }
-                diagram.Nodes.Remove(groupContainer);
+                Globals.Diagram.Nodes.Remove(groupContainer);
             }
         }
 
-        public static void Ungroup_Enabled(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = diagram.Selection.GetSize() > 0;
+        public static void Ungroup_Enabled(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = Globals.Diagram.Selection.GetSize() > 0;
 
         #endregion
 
@@ -306,31 +328,31 @@ namespace Test2
 
         public static void BringForward_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            diagram.Selection.ZLevelUp(false);
+            Globals.Diagram.Selection.ZLevelUp(false);
         }
 
         public static void Order_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
         }
 
         #endregion
 
         #region BringToFront Command
 
-        public static void BringToFront_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZTop(false);
+        public static void BringToFront_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.Selection.ZTop(false);
 
         #endregion
 
         #region SendBackward Command
 
-        public static void SendBackward_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZLevelDown(false);
+        public static void SendBackward_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.Selection.ZLevelDown(false);
 
         #endregion
 
         #region SendToBack Command
 
-        public static void SendToBack_Executed(object sender, ExecutedRoutedEventArgs e) => diagram.Selection.ZBottom(false);
+        public static void SendToBack_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.Selection.ZBottom(false);
 
 
         #endregion
@@ -355,11 +377,11 @@ namespace Test2
             Func<Rect, double> getter,
             Func<Rect, double, Rect> setter)
         {
-            var target = diagram.ActiveItem as DiagramNode;
+            var target = Globals.Diagram.ActiveItem as DiagramNode;
             if (target != null)
             {
                 var alignedCoord = getter(target.Bounds);
-                foreach (var node in diagram.Selection.Nodes)
+                foreach (var node in Globals.Diagram.Selection.Nodes)
                 {
                     if (node == target)
                         continue;
@@ -386,7 +408,7 @@ namespace Test2
 
 
             //e.CanExecute = groupedItem.Count() > 1;
-            e.CanExecute = diagram.Selection.GetSize() > 0;
+            e.CanExecute = Globals.Diagram.Selection.GetSize() > 0;
         }
 
         #endregion
@@ -569,13 +591,13 @@ namespace Test2
         public static void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
         
             {
-                foreach (var item in diagram.Items)
-                    diagram.Selection.AddItem(item);
+                foreach (var item in Globals.Diagram.Items)
+                Globals.Diagram.Selection.AddItem(item);
             }
         
         internal void ClearSelection()
         {
-            diagram.Selection.Clear();
+            Globals.Diagram.Selection.Clear();
         }
 
         #endregion
