@@ -163,13 +163,13 @@
   </shape>
   <shape id="Separator" fill-mode="Winding">
     <outline>
-      <line dash-style="Dot" width="-1">
-        <point>100, 50</point>
+      <line dash-style="Solid" width="-1">
+        <point>90, 50</point>
         <point>0, 50</point>
       </line>
       <line dash-style="Solid" width="-1">
         <point>0, 50</point>
-        <point>100, 50</point>
+        <point>90, 50</point>
       </line>
     </outline>
     <shape-decorations />
