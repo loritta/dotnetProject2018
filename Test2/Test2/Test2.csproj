@@ -81,6 +81,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CFAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CFPrimaryKey.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CFPrimaryKeySeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\CrowsFoot\CrowsFootEntity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLClasses\UMLClass.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLClasses\UMLInterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLClasses\UMLMember.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLClasses\UMLPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomNodes\Resources\UMLClasses\UMLSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,17 +126,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands.cs" />
-    <Compile Include="CustomDatabaseDiag.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CFAttributeNode.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CFPrimaryKeyNode.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CFPrimaryKeySeparatorNode.cs" />
+    <Compile Include="CustomNodes\CrowsFootDb\CrowsFootEntity.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLClassNode.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLInterfaceNode.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLMember.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLPackage.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLPackageNode.cs" />
+    <Compile Include="CustomNodes\UMLClass\UMLSeparatorNode.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="LoadDiagramShapes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\CustomDiagram.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Menubar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +177,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="CustomNodes\CustomLibrary\BasicFlowchart.sl" />
+    <None Include="CustomNodes\CustomLibrary\CrowsFootDb.sl" />
+    <None Include="CustomNodes\CustomLibrary\testShape.sl" />
+    <None Include="CustomNodes\CustomLibrary\UMLClasses.sl" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -145,7 +190,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="CustomNodes\Images\PrimaryKey.png" />
+    <Resource Include="CustomNodes\Resources\CrowsFoot\PrimaryKey.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\AlignObjectsBottom.png" />
     <Resource Include="Resources\Images\AlignObjectsCenteredHorizontal.png" />

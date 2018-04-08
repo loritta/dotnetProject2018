@@ -8,7 +8,17 @@
     <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="Resources/ToolBar.xaml"/>
             <ResourceDictionary Source="Resources/Menubar.xaml"/>
-        </ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLClass.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLInterface.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLMember.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLPackage.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/UMLClasses/UMLSeparator.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CrowsFootEntity.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CFPrimaryKey.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CFAttribute.xaml" />
+            <ResourceDictionary Source="CustomNodes/Resources/CrowsFoot/CFPrimaryKeySeparator.xaml" />
+            </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
     </Application.Resources>
 </Application>

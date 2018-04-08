@@ -42,9 +42,10 @@
                     <diag:NodeListView x:Name="shapeList" HorizontalAlignment="Stretch" Margin="10" />
                 </Expander>
                 <Expander Header="Diagram type" IsExpanded="True">
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Height="25" Margin="10" Style="{x:Null}">
+                    <ComboBox SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Height="25" Margin="10" Style="{x:Null}">
+                        <ComboBoxItem>Basic Flowchart</ComboBoxItem>
                         <ComboBoxItem>UML Class Diagram</ComboBoxItem>
-                        <ComboBoxItem>Crow's Foot Database Notation</ComboBoxItem>
+                        <ComboBoxItem>Crow's Foot Notation</ComboBoxItem>
                     </ComboBox>
                 </Expander>
             </StackPanel>
