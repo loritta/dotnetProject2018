@@ -1,9 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:mfd="clr-namespace:MindFusion.Diagramming.Wpf;assembly=MindFusion.Diagramming.Wpf"
-                    xmlns:commands="clr-namespace:Test2">
+                    xmlns:mfd="clr-namespace:MindFusion.Diagramming.Wpf;assembly=MindFusion.Diagramming.Wpf">
 
-    
    <ResourceDictionary.MergedDictionaries>
         <!--<ResourceDictionary Source="Styles/Shared.xaml"/>-->
         <ResourceDictionary Source="Styles/Toolbar.xaml"/>
@@ -15,8 +13,8 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <Button Margin="3" Width="55" Style="{StaticResource ToolBarButtonBaseStyle}"
                         HorizontalContentAlignment="Center"
-                        Command="commands:Commands.New"
-                        CommandTarget="{Binding ElementName=diagram}">
+                        Command="{x:Static ApplicationCommands.New}"
+                        CommandTarget="{Binding ElementName=MyDesigner}">
                     <Button.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -31,8 +29,8 @@
                 <StackPanel Orientation="Vertical" Margin="0,2,0,2">
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Open"
-                            CommandTarget="{Binding ElementName=diagram}">
+                            Command="{x:Static ApplicationCommands.Open}"
+                            CommandTarget="{Binding ElementName=MyDesigner}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -46,8 +44,8 @@
                     </Button>
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Save"
-                            CommandTarget="{Binding ElementName=diagram}">
+                            Command="{x:Static ApplicationCommands.Save}"
+                            CommandTarget="{Binding ElementName=MyDesigner}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -61,8 +59,8 @@
                     </Button>
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Print"
-                            CommandTarget="{Binding ElementName=diagram}">
+                            Command="{x:Static ApplicationCommands.Print}"
+                            CommandTarget="{Binding ElementName=MyDesigner}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -83,8 +81,8 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <Button Margin="3" Width="55"
                         Style="{StaticResource ToolBarButtonBaseStyle}"
-                        Command="commands:Commands.Paste"
-                        CommandTarget="{Binding ElementName=diagram}">
+                        Command="{x:Static ApplicationCommands.Paste}"
+                        CommandTarget="{Binding ElementName=MyDesigner}">
                     <Button.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -99,8 +97,8 @@
                 <StackPanel Orientation="Vertical" Margin="0,2,0,2">
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Cut"
-                            CommandTarget="{Binding ElementName=diagram}">
+                            Command="{x:Static ApplicationCommands.Cut}"
+                            CommandTarget="{Binding ElementName=MyDesigner}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -114,8 +112,8 @@
                     </Button>
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Copy"
-                            CommandTarget="{Binding ElementName=diagram}">
+                            Command="{x:Static ApplicationCommands.Copy}"
+                            CommandTarget="{Binding ElementName=MyDesigner}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -129,8 +127,8 @@
                     </Button>
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Delete"
-                            CommandTarget="{Binding ElementName=diagram}">
+                            Command="{x:Static ApplicationCommands.Delete}"
+                            CommandTarget="{Binding ElementName=MyDesigner}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -157,9 +155,7 @@
                     <Border BorderBrush="{StaticResource ToolbarBorderBrush}" BorderThickness="1" CornerRadius="2" Margin="3">
                         <StackPanel Orientation="Horizontal">
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                   Command="commands:Commands.AlignLeft"
-                            CommandTarget="{Binding ElementName=diagram}"
-                                    >
+                                   >
                                 <!--Command="{x:Static s:DesignerCanvas.AlignLeft}"
                                     CommandTarget="{Binding ElementName=MyDesigner}"-->
                                 <Button.Content>
@@ -167,8 +163,7 @@
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                  
-                                    >
+                                  >
                                 <!-- Command="{x:Static s:DesignerCanvas.AlignHorizontalCenters}"
                                     CommandTarget="{Binding ElementName=MyDesigner}"-->
                                 <Button.Content>
@@ -176,9 +171,9 @@
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                 Command="commands:Commands.AlignRight"
-                            CommandTarget="{Binding ElementName=diagram}">
-                             
+                                   >
+                                <!-- Command="{x:Static s:DesignerCanvas.AlignRight}"
+                                    CommandTarget="{Binding ElementName=MyDesigner}"-->
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsRight.png" Width="16"/>
                                 </Button.Content>
@@ -188,8 +183,6 @@
                     <Border BorderBrush="{StaticResource ToolbarBorderBrush}" BorderThickness="1" CornerRadius="2" Margin="3">
                         <StackPanel Orientation="Horizontal">
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="commands:Commands.AlignTop"
-                            CommandTarget="{Binding ElementName=diagram}"
                                     >
                                 <!--Command="{x:Static s:DesignerCanvas.AlignTop}"
                                     CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -198,7 +191,6 @@
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    
                                     >
                                 <!--Command="{x:Static s:DesignerCanvas.AlignVerticalCenters}"
                                     CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -207,8 +199,6 @@
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                   Command="commands:Commands.AlignBottom"
-                            CommandTarget="{Binding ElementName=diagram}"
                                     >
                                 <!--Command="{x:Static s:DesignerCanvas.AlignBottom}"
                                     CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -269,8 +259,6 @@
                 <StackPanel>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Group"
-                            CommandTarget="{Binding ElementName=diagram}"
                             >
                         <!--Command="{x:Static s:DesignerCanvas.Group}"
                             CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -287,8 +275,6 @@
                     </Button>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.Ungroup"
-                            CommandTarget="{Binding ElementName=diagram}"
                             >
                         <!--Command="{x:Static s:DesignerCanvas.Ungroup}"
                             CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -307,8 +293,6 @@
                 <StackPanel Grid.Column="1" Margin="7,0,0,0">
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.BringForward"
-                            CommandTarget="{Binding ElementName=diagram}"
                             >
                         <!--Command="{x:Static s:DesignerCanvas.BringForward}"
                             CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -325,8 +309,6 @@
                     </Button>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.BringToFront"
-                            CommandTarget="{Binding ElementName=diagram}"
                             >
                         <!--Command="{x:Static s:DesignerCanvas.BringToFront}"
                             CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -349,8 +331,6 @@
                 <StackPanel Grid.Column="2">
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.SendBackward"
-                            CommandTarget="{Binding ElementName=diagram}"
                             >
                         <!--Command="{x:Static s:DesignerCanvas.SendBackward}"
                             CommandTarget="{Binding ElementName=MyDesigner}"-->
@@ -367,8 +347,6 @@
                     </Button>
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="commands:Commands.SendToBack"
-                            CommandTarget="{Binding ElementName=diagram}"
                             >
                         <!--Command="{x:Static s:DesignerCanvas.SendToBack}"
                             CommandTarget="{Binding ElementName=MyDesigner}"-->

@@ -9,8 +9,7 @@ namespace Test2
 {
     class Globals
     {
-        private static Diagram diagram;
+        public static Diagram diagram;
 
-        public static Diagram Diagram { get => diagram; set => diagram = value; }
     }
 }
