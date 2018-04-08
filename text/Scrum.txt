@@ -272,4 +272,27 @@ Finalize the commands execution from Toolbar to Diagram. Test, confirm. Continue
 
 3. Need assistance / figure things out:
 
+================================================
+----------------
+Day 12:
+================================================
+2018/04/06 Chris
+
+1. Done since last scrum:
+
+2. Plan until next Scrum:
+
+3. Need assistance / figure things out:
+
+2018/04/04 Larisa
+1. Done since last scrum:
+*working: save, new, open, print(have to add just the errors handling), alignment(partialy-have to solve the central, vertical, ), group, ungroup.
+
+2. Plan until next Scrum:
+**not working need to figure why:
+copy, paste, delete
+
+3. Need assistance / figure things out:
+
+
 
