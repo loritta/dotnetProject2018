@@ -179,8 +179,6 @@ namespace Test2
 
         public static void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Globals.Diagram.Selection.Dispose();
-
             PrintDialog printDialog = new PrintDialog();
 
             if (true == printDialog.ShowDialog())
@@ -189,6 +187,7 @@ namespace Test2
             }
             //attention to see if it works and then delete the top
             Globals.Diagram.Print();
+            Globals.Diagram.Selection.Dispose();
         }
 
 
@@ -204,7 +203,7 @@ namespace Test2
 
         public static void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
+            e.CanExecute = Globals.Diagram.Selection.Items.Count() != 0;
         }
 
         #endregion
@@ -229,13 +228,13 @@ namespace Test2
 
         public static void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Globals.Diagram.Selection.Clear(); 
+            Globals.Diagram.Selection.Dispose(); 
 
         }
 
         public static void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-                e.CanExecute = Globals.Diagram.Selection.Items.Count() > 0;
+                e.CanExecute = Globals.Diagram.Selection.Items.Count() != 0;
             
         }
 
@@ -243,7 +242,7 @@ namespace Test2
 
         #region Cut Command
 
-        public static void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.CutToClipboard(false, true);
+        public static void Cut_Executed(object sender, ExecutedRoutedEventArgs e) => Globals.Diagram.CutToClipboard(true, true);
 
         public static void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
