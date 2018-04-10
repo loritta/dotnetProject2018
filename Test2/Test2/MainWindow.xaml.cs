@@ -233,6 +233,7 @@ namespace Test2
             layout.KeepRootPosition = false;
             layout.LevelDistance = 40;
             layout.Arrange(diagram);
+            diagram.UndoManager.UndoEnabled = true;
 
         }
 

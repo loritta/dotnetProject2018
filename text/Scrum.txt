@@ -294,5 +294,50 @@ copy, paste, delete
 
 3. Need assistance / figure things out:
 
+================================================
+----------------
+Day 13:
+================================================
+2018/04/07 Chris
+
+1. Done since last scrum:
+
+2. Plan until next Scrum:
+
+3. Need assistance / figure things out:
+
+2018/04/04 Larisa
+1. Done since last scrum:
+fighting with undo/redo and the cut/paste/copy.. no success for now
+
+2. Plan until next Scrum:
+**not working need to figure why:
+copy, paste, delete, undo/redo, overview and colorpicker
+
+3. Need assistance / figure things out:
+all of those
+
+================================================
+----------------
+Day 13:
+================================================
+2018/04/07 Chris
+
+1. Done since last scrum:
+
+2. Plan until next Scrum:
+
+3. Need assistance / figure things out:
+
+2018/04/04 Larisa
+1. Done since last scrum:
+fighting with undo/redo and the cut/paste/copy.. no success for now
+
+2. Plan until next Scrum:
+**not working need to figure why:
+copy, paste, delete, undo/redo, overview and colorpicker
+
+3. Need assistance / figure things out:
+all of those
 
 

@@ -44,9 +44,13 @@ namespace Test2
         private static RoutedUICommand _distributeHorizontal;
         private static RoutedUICommand _distributeVertical;
         private static RoutedUICommand _selectAll;
+        private static RoutedUICommand _undo;
+        private static RoutedUICommand _redo;
 
         static Commands()
         {
+            _redo = new RoutedUICommand("Redo action", "Redo", typeof(Commands));
+            _undo =  new RoutedUICommand("Undo action", "Undo", typeof(Commands));
             _delete = new RoutedUICommand("Delete elements", "Delete", typeof(Commands));
             _paste = new RoutedUICommand("Paste elements", "Paste", typeof(Commands));
             _copy = new RoutedUICommand("Copy elements", "Copy", typeof(Commands));
@@ -95,6 +99,8 @@ namespace Test2
         public static RoutedUICommand Copy { get => _copy;  }
         public static RoutedUICommand Paste { get => _paste; }
         public static RoutedUICommand Delete { get => _delete; }
+        public static RoutedUICommand Undo { get => _undo; }
+        public static RoutedUICommand Redo { get => _redo; }
 
         public static void BindCommandsToDiagram(Diagram diagram)
         {
@@ -122,6 +128,10 @@ namespace Test2
           //  diagram.CommandBindings.Add(new CommandBinding(DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
             diagram.CommandBindings.Add(new CommandBinding(SelectAll, SelectAll_Executed));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
+            diagram.CommandBindings.Add(new CommandBinding(Undo, Undo_Executed, Undo_Enabled));
+            diagram.CommandBindings.Add(new CommandBinding(Redo, Redo_Executed, Redo_Enabled));
+            Undo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
+
 
             diagram.AllowDrop = true;
             Clipboard.Clear();
@@ -622,26 +632,45 @@ namespace Test2
 
             return null;
         }
-
-       
-
-        
-
-        
-
-        
-
-        
-
-        
-
-       
-
-       
-
-
-      
-
         #endregion
+        #region Undo Command
+        public void Undo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Globals.Diagram.UndoManager.Undo();
+        }
+        public static void Undo_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Globals.Diagram.UndoManager.History != null;
+        }
+        #endregion
+
+        #region Redo Command
+        public void Redo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Globals.Diagram.UndoManager.Redo();
+        }
+        public static void Redo_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Globals.Diagram.UndoManager.History != null;
+        }
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
 }
