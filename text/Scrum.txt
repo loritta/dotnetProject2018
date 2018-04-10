@@ -325,9 +325,15 @@ Day 13:
 
 1. Done since last scrum:
 
+-Completed all planned shapes templates/code/etc
+-Merged our separate work into 1 project
+-Fixed some bugs
 2. Plan until next Scrum:
 
+-Focus on functionality for what we have
+
 3. Need assistance / figure things out:
+
 
 2018/04/04 Larisa
 1. Done since last scrum:
