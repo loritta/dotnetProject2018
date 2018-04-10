@@ -128,8 +128,8 @@ namespace Test2
           //  diagram.CommandBindings.Add(new CommandBinding(DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
             diagram.CommandBindings.Add(new CommandBinding(SelectAll, SelectAll_Executed));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
-            diagram.CommandBindings.Add(new CommandBinding(Undo, Undo_Executed, Undo_Enabled));
-            diagram.CommandBindings.Add(new CommandBinding(Redo, Redo_Executed, Redo_Enabled));
+            //diagram.CommandBindings.Add(new CommandBinding(Undo, Undo_Executed, Undo_Enabled));
+            //diagram.CommandBindings.Add(new CommandBinding(Redo, Redo_Executed, Redo_Enabled));
             Undo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
 
 
