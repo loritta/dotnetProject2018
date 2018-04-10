@@ -2,6 +2,7 @@
 using MindFusion.Diagramming.Wpf.Layout;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,16 +60,44 @@ namespace Test2
             node.Name = draggedNode.Name;
             node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
 
+            // for special cases where you would drop a member or separator node on top of a node
+            if (node.Name.Equals("memberNode"))
+            {
+                DiagramNode dropTarget = diagram.GetNearestNode(e.GetPosition(this), 100, null);
+                if (dropTarget != null)
+                {
+                    if (dropTarget.Name.Equals("classNode"))
+                    {
+                        MessageBox.Show("dropped member node on class node...");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Now I'm Lost");
+                    }
+                    
 
-            DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
+                }
+            }
+            
+
+            else
+            {
+                DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
+
+            }
+
+
+
         }
+
+
         // this checks the dragged node type and creates the right custom node for it...
         // this checks the dragged node type and creates the right custom node for it...
         #region Node created
         private void DiagramNodeCreated(ShapeNode node)
         {
             // check if the node is a connector
-            if (node.Shape.Id == "Inheritance")
+            if (node.Shape.Id == "InheritanceLink")
             {
                 // replace the dummy connector node with a DiagramLink
                 var bounds = node.Bounds;
@@ -81,14 +110,14 @@ namespace Test2
                 link.HeadShape = ArrowHeads.Triangle;
                 ConnectToNearbyNode(link);
             }
-            else if (node.Shape.Id == "Interface")
+            else if (node.Shape.Id == "InterfaceLink")
             {
                 var bounds = node.Bounds;
                 diagram.Items.Remove(node);
 
                 var link = diagram.Factory.CreateDiagramLink(
                     bounds.TopLeft, bounds.BottomRight);
-                link.SegmentCount = 2;
+                link.SegmentCount = 1;
                 link.Shape = LinkShape.Cascading;
 
                 System.Windows.Media.DashStyle dash = new System.Windows.Media.DashStyle();
@@ -233,7 +262,6 @@ namespace Test2
             layout.KeepRootPosition = false;
             layout.LevelDistance = 40;
             layout.Arrange(diagram);
-            diagram.UndoManager.UndoEnabled = true;
 
         }
 
@@ -348,7 +376,11 @@ namespace Test2
         #region Load UML
         private void LoadUmlNodes()
         {
-            shapeList.Items.Clear();
+            diagram.AutoSnapLinks = true;
+            diagram.AllowUnanchoredLinks = false;
+            diagram.Behavior = Behavior.PanAndModify; // user can select diagrams and pan the screen
+            diagram.RouteLinks = true;                  // links will be automatically routed properly
+            shapeList.Items.Clear();        
 
             shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/UMLClasses.sl");
             NodesFromLib();
@@ -391,7 +423,7 @@ namespace Test2
                     new LineTemplate(90, 50, 90, 90)
                 },
                 null,
-                FillRule.Nonzero, "Inheritance");
+                FillRule.Nonzero, "InheritanceLink");
 
             var inheritanceListNode = new ShapeNode { Shape = inheritanceShape };
             NodeListView.SetLabel(inheritanceListNode, "Inheritance");
@@ -407,7 +439,7 @@ namespace Test2
                     new LineTemplate(90, 50, 90, 90, Color.FromRgb(0,0,0), DashStyles.Dot, 1)
                 },
                 null,
-                FillRule.Nonzero, "Interface");
+                FillRule.Nonzero, "InterfaceLink");
 
             var interfaceListNode = new ShapeNode { Shape = interfaceShape };
             NodeListView.SetLabel(interfaceListNode, "Interface Realization");
@@ -552,6 +584,7 @@ namespace Test2
                 }
             }
         }
+
         #region New Command
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -562,6 +595,9 @@ namespace Test2
         {
 
         }
+
+
         #endregion
+
     }
 }
