@@ -14,7 +14,6 @@ namespace Test2
 {
     public class UMLClassNode : TemplatedNode
     {
-        public Button AddMemberBtn;
 
         private static List<Brush> Fills;
 
@@ -91,6 +90,7 @@ namespace Test2
             Border buttonFirstParent = button.Parent as Border;
             Grid grid = buttonFirstParent.Parent as Grid;
 
+            
             switch (button.Name)
             {
                 case "BtAddMember":
@@ -140,6 +140,7 @@ namespace Test2
         public static readonly DependencyProperty ClassNameProperty = DependencyProperty.Register(
             "ClassName", typeof(string), typeof(UMLClassNode), new PropertyMetadata(""));
 
-   
+
+        
     }
 }

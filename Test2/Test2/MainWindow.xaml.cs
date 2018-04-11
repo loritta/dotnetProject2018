@@ -71,7 +71,8 @@ namespace Test2
 
                 UMLClassNode targetNode = (UMLClassNode)dropTarget;
 
-                Button bt = targetNode.AddMemberBtn;
+
+                Button bt = null;
                 //targetNode.ApplyTemplate();
                 //Button bt = (Button)targetNode.FindResource("BtAddMember");
 
