@@ -237,13 +237,10 @@ Day 10:
 
 2018/04/04 Larisa
 1. Done since last scrum:
-Working on the ocmands and the connection between the diagram and the toolbar. Made several changes. and had to restart multiples times.
 
 2. Plan until next Scrum:
-Finalize the commands execution from Toolbar to Diagram. Test, confirm. Continue with the color picker implementation.
 
 3. Need assistance / figure things out:
-Mindfusion is a mess!!! Need to to find how to connect all.
 
 ================================================
 ----------------
@@ -264,86 +261,74 @@ Day 11:
 
 2018/04/04 Larisa
 1. Done since last scrum:
-Working on the ocmands and the connection between the diagram and the toolbar. Made several changes figured out how to connect everything. continue to work on the implementation.
-Teacher's advise helped.
 
 2. Plan until next Scrum:
-Finalize the commands execution from Toolbar to Diagram. Test, confirm. Continue with the color picker implementation.
 
 3. Need assistance / figure things out:
 
++Day 12:
++================================================
++2018/04/06 Chris
++
++1. Done since last scrum:
++
++2. Plan until next Scrum:
++
++3. Need assistance / figure things out:
++
++2018/04/04 Larisa
++1. Done since last scrum:
++*working: save, new, open, print(have to add just the errors handling), alignment(partialy-have to solve the central, vertical, ), group, ungroup.
++
++2. Plan until next Scrum:
++**not working need to figure why:
++copy, paste, delete
++
++3. Need assistance / figure things out:
++
++
 ================================================
-----------------
-Day 12:
-================================================
-2018/04/06 Chris
-
-1. Done since last scrum:
-
-2. Plan until next Scrum:
-
-3. Need assistance / figure things out:
-
-2018/04/04 Larisa
-1. Done since last scrum:
-*working: save, new, open, print(have to add just the errors handling), alignment(partialy-have to solve the central, vertical, ), group, ungroup.
-
-2. Plan until next Scrum:
-**not working need to figure why:
-copy, paste, delete
-
-3. Need assistance / figure things out:
-
-================================================
-----------------
-Day 13:
-================================================
-2018/04/07 Chris
-
-1. Done since last scrum:
-
-2. Plan until next Scrum:
-
-3. Need assistance / figure things out:
-
-2018/04/04 Larisa
-1. Done since last scrum:
-fighting with undo/redo and the cut/paste/copy.. no success for now
-
-2. Plan until next Scrum:
-**not working need to figure why:
-copy, paste, delete, undo/redo, overview and colorpicker
-
-3. Need assistance / figure things out:
-all of those
-
-================================================
-----------------
-Day 13:
-================================================
-2018/04/07 Chris
-
-1. Done since last scrum:
-
--Completed all planned shapes templates/code/etc
--Merged our separate work into 1 project
--Fixed some bugs
-2. Plan until next Scrum:
-
--Focus on functionality for what we have
-
-3. Need assistance / figure things out:
-
-
-2018/04/04 Larisa
-1. Done since last scrum:
-fighting with undo/redo and the cut/paste/copy.. no success for now
-
-2. Plan until next Scrum:
-**not working need to figure why:
-copy, paste, delete, undo/redo, overview and colorpicker
-
-3. Need assistance / figure things out:
-all of those
-
-
++----------------
++Day 13:
++================================================
++2018/04/07 Chris
++
++1. Done since last scrum:
++
++2. Plan until next Scrum:
++
++3. Need assistance / figure things out:
++
++2018/04/04 Larisa
++1. Done since last scrum:
++fighting with undo/redo and the cut/paste/copy.. no success for now
++
++2. Plan until next Scrum:
++**not working need to figure why:
++copy, paste, delete, undo/redo, overview and colorpicker
++
++3. Need assistance / figure things out:
++all of those
++
++================================================
++----------------
++Day 13:
++================================================
++2018/04/07 Chris
++
++1. Done since last scrum:
++
++2. Plan until next Scrum:
++
++3. Need assistance / figure things out:
++
++2018/04/04 Larisa
++1. Done since last scrum:
++fighting with undo/redo and the cut/paste/copy.. no success for now
++
++2. Plan until next Scrum:
++**not working need to figure why:
++copy, paste, delete, undo/redo, overview and colorpicker
++
++3. Need assistance / figure things out:
++all of those
