@@ -64,7 +64,7 @@ namespace Test2
             node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
 
             // for special cases where you would drop a member or separator node on top of a node
-            
+            /*
             if (node.Name.Equals("memberNode"))
             {
                 DiagramNode dropTarget = diagram.GetNearestNode(e.GetPosition(this), 500, null);
@@ -112,8 +112,8 @@ namespace Test2
                 DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
 
             }
-            
-            //DiagramNodeCreated(node);
+            */
+            DiagramNodeCreated(node);
         }
 
 

@@ -11,10 +11,17 @@
 
                         <Rectangle
 							Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"
-							Fill="{Binding Brush}" RadiusX="5" RadiusY="5" 
-                            Margin="-5,0,-5,-5"
-                            />
-                            
+							RadiusX="5" RadiusY="5" 
+                            Margin="-5,0,-5,-5" >
+                            <Rectangle.Fill>
+                                <SolidColorBrush>
+                                    <SolidColorBrush.Color>
+                                        <Color A="100" R="83" G="140" B="198" />
+                                    </SolidColorBrush.Color>
+                                </SolidColorBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -32,13 +39,25 @@
                                              Background="WhiteSmoke" TextAlignment="Center" Text="{Binding EntityName}" />
                                 </Border>
 
-                                <Border Padding="2,0,2,4" Grid.Row="1">
+                                <Border Grid.Row="1" Background="White">
                                     <TextBox AcceptsReturn="True" FontFamily="Verdana" FontSize="12" Foreground="Black" 
-                                             Background="Azure" Text="{Binding AttributeName}" />
+                                             Text="{Binding AttributeName}" >
+                                        <TextBox.Background>
+                                            
+                                            <ImageBrush ImageSource="PrimaryKey.png" AlignmentX="Left" 
+                                            AlignmentY="Center"  Stretch="Uniform" ></ImageBrush>
+                                        </TextBox.Background>
+                                    </TextBox>
+                                    
                                 </Border>
 
-                                <Border Padding="2,2,2,0" Grid.Row="2">
-                                    <Button Name="BtAddAttribute" Content="Add Attribute" Padding="2" HorizontalAlignment="Left" />
+                                    <Border Padding="0,2,6,2" Grid.Row="2">
+                                    <Button Name="BtAddAttribute" 
+                                            Content="Add Attribute" 
+                                            HorizontalAlignment="Left" 
+                                            Background="White"
+                                            Foreground="Black"
+                                            Padding="5,5,5,5" />
                                 </Border>
 
                             </Grid>
