@@ -14,6 +14,8 @@ namespace Test2
 {
     public class UMLClassNode : TemplatedNode
     {
+        public Button AddMemberBtn;
+
         private static List<Brush> Fills;
 
         private const string ClassNamePlaceholder = "<class name>";
@@ -65,8 +67,8 @@ namespace Test2
         {
             // event when you add a new member via button
             AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
-            // event for when you "drag" a member node over a class node
-            //AddHandler(Ruler., new DragEventHandler(OnDragOver));
+
+
             ClassName = ClassNamePlaceholder;
             Text = TextPlaceholder;
             Stroke = Brushes.Gray;
@@ -138,10 +140,6 @@ namespace Test2
         public static readonly DependencyProperty ClassNameProperty = DependencyProperty.Register(
             "ClassName", typeof(string), typeof(UMLClassNode), new PropertyMetadata(""));
 
-        void OnDragOver(object sender, DragEventArgs e)
-        {
-            
-            MessageBox.Show(e.ToString());
-        }
+   
     }
 }

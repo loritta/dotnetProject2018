@@ -36,7 +36,9 @@
                                 </Border>
 
                                 <Border Padding="2,2,2,0" Grid.Row="2">
-                                    <Button Name="BtAddMember" Content="Add Member" Padding="2" HorizontalAlignment="Left" />
+                                    <Button Content="Add Member" Padding="2" 
+                                            HorizontalAlignment="Left" x:Name="BtAddMember">
+                                    </Button>
                                 </Border>
                    
                             </Grid>

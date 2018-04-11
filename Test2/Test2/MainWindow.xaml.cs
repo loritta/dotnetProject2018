@@ -32,7 +32,10 @@ namespace Test2
             
             Loaded += new RoutedEventHandler(MainWindow_Loaded);
 
-
+            diagram.AutoSnapLinks = true;
+            diagram.AllowUnanchoredLinks = false;
+            diagram.Behavior = Behavior.PanAndModify; // user can select diagrams and pan the screen
+            diagram.RouteLinks = true;                  // links will be automatically routed properly
             // testing below
             /*
             diagram.LinkHeadShape = ArrowHeads.Triangle;
@@ -61,21 +64,44 @@ namespace Test2
             node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
 
             // for special cases where you would drop a member or separator node on top of a node
+            
             if (node.Name.Equals("memberNode"))
             {
-                DiagramNode dropTarget = diagram.GetNearestNode(e.GetPosition(this), 100, null);
-                if (dropTarget != null)
+                DiagramNode dropTarget = diagram.GetNearestNode(e.GetPosition(this), 500, null);
+
+                UMLClassNode targetNode = (UMLClassNode)dropTarget;
+
+                Button bt = targetNode.AddMemberBtn;
+                //targetNode.ApplyTemplate();
+                //Button bt = (Button)targetNode.FindResource("BtAddMember");
+
+                if (bt != null)
                 {
-                    if (dropTarget.Name.Equals("classNode"))
+                    MessageBox.Show("bt is not null................");
+
+                }
+                if (dropTarget != null && targetNode != null)
+                {
+                    Type dropTargetType = dropTarget.GetType();
+                    if (dropTargetType == typeof(UMLClassNode))
                     {
-                        MessageBox.Show("dropped member node on class node...");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Now I'm Lost");
+
+                        //targetNode.AddRow();
+                        //Button bt = targetNode.addMemberBtn;
+                        //Button bt = targetNode.GetAddButton();
+
+                        if (bt == null)
+                        {
+                            MessageBox.Show("error getting the button...");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Button is NOT NULL");
+                            //targetNode.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, bt));
+                        }
+
                     }
                     
-
                 }
             }
             
@@ -85,9 +111,8 @@ namespace Test2
                 DiagramNodeCreated(node);   // this passes the default shape and adds the custom one instead
 
             }
-
-
-
+            
+            //DiagramNodeCreated(node);
         }
 
 
@@ -131,7 +156,7 @@ namespace Test2
                 link.HeadShape = ArrowHeads.Triangle;
                 ConnectToNearbyNode(link);
             }
-            if (node.Shape.Id == "RelationshipLink")
+            else if (node.Shape.Id == "RelationshipLink")
             {
                 // replace the dummy connector node with a DiagramLink
                 var bounds = node.Bounds;
@@ -139,7 +164,7 @@ namespace Test2
 
                 var link = diagram.Factory.CreateDiagramLink(
                     bounds.TopLeft, bounds.BottomRight);
-                link.SegmentCount = 2;
+                link.SegmentCount = 1;
                 link.Shape = LinkShape.Cascading;
                 link.HeadShape = ArrowHeads.DefaultFlow; // might need a custom arrowhead here, supposed to be a straight line with 2
                 link.BaseShape = ArrowHeads.RevWithLine; // vertical || across (see visio)
@@ -147,7 +172,7 @@ namespace Test2
             }
             else
             {
-                node.AnchorPattern = AnchorPattern.Decision2In2Out;
+                //node.AnchorPattern = AnchorPattern.Decision2In2Out;
                 ConnectToNearbyLink(node);
             }
 
@@ -183,7 +208,7 @@ namespace Test2
             {
                 var node1 = new UMLMember
                 {
-                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 25),
 
                 };
                 diagram.Nodes.Add(node1);
@@ -221,7 +246,7 @@ namespace Test2
             {
                 var node1 = new CFPrimaryKeyNode
                 {
-                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 25),
 
                 };
                 diagram.Nodes.Add(node1);
@@ -230,7 +255,7 @@ namespace Test2
             {
                 var node1 = new CFAttributeNode
                 {
-                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 160),
+                    Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 300, 25),
 
                 };
                 diagram.Nodes.Add(node1);
@@ -296,6 +321,7 @@ namespace Test2
         #region Load Basic Flowchart
         private void LoadBasicFlowchartNodes()
         {
+            diagram.Behavior = Behavior.DrawLinks;
             shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/BasicFlowchart.sl");
             NodesFromLib();
             shapeList.SelectedIndex = 0;
@@ -355,7 +381,6 @@ namespace Test2
             ShapeNode subprocessNode = shapeList.Items.GetItemAt(2) as ShapeNode;
             subprocessNode.Name = "subprocessNode";
             subprocessNode.AnchorPattern = squareAnchors;
-            subprocessNode.AnchorPattern = squareAnchors;
             subprocessNode.TextAlignment = TextAlignment.Center;
             subprocessNode.TextVerticalAlignment = AlignmentY.Center;
             subprocessNode.ResizeToFitText(FitSize.KeepRatio);
@@ -376,10 +401,8 @@ namespace Test2
         #region Load UML
         private void LoadUmlNodes()
         {
-            diagram.AutoSnapLinks = true;
-            diagram.AllowUnanchoredLinks = false;
-            diagram.Behavior = Behavior.PanAndModify; // user can select diagrams and pan the screen
-            diagram.RouteLinks = true;                  // links will be automatically routed properly
+            diagram.Behavior = Behavior.PanAndModify;
+
             shapeList.Items.Clear();        
 
             shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/UMLClasses.sl");
@@ -449,6 +472,8 @@ namespace Test2
         #region Load Crow's Foot
         private void LoadCrowsFootNodes()
         {
+            diagram.Behavior = Behavior.PanAndModify;
+
             shapeList.Items.Clear();
 
             shapeLibrary.LoadFromXml(@"../../CustomNodes/CustomLibrary/CrowsFootDb.sl");
@@ -500,7 +525,7 @@ namespace Test2
 	            {
                     new LineTemplate(10, 10, 10, 50),
                     new LineTemplate(10, 50, 90, 50),
-                    //new LineTemplate(90, 50, 90, 90)
+                    new LineTemplate(90, 50, 90, 90)
                 },
                 null,
                 FillRule.Nonzero, "RelationshipLink");

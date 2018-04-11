@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Test2
 {
@@ -12,7 +13,7 @@ namespace Test2
     {
         private static string AttributeNamePlaceholder = "<Attribute Name>";
 
-        /* Patterns might be added later
+   
         AnchorPattern squareAnchors = new AnchorPattern(new AnchorPoint[]
                 {
                     // if you picture the node as a grid, top left is 0,0
@@ -25,7 +26,7 @@ namespace Test2
                     new AnchorPoint(50, 100, true, true),
                     new AnchorPoint(0, 50, true, true)
                 });
-                */
+                
         static CFAttributeNode()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
@@ -47,11 +48,11 @@ namespace Test2
         {
             AttributeName = AttributeNamePlaceholder;
 
-            /*
-            Stroke = Brushes.Gray;
-            StrokeThickness = 5;
-            */
-            HandlesStyle = HandlesStyle.HatchHandles3; // the way the node looks when selected
+            HandlesStyle = HandlesStyle.HatchHandles3;
+
+            this.AnchorPattern = squareAnchors;
+            this.TextAlignment = TextAlignment.Center;
+            this.TextVerticalAlignment = AlignmentY.Center;
 
         }
 
