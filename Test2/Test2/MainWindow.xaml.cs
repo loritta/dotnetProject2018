@@ -64,6 +64,7 @@ namespace Test2
             node.Bounds = new Rect(node.Bounds.Left, node.Bounds.Top, 75, 75);
 
             // for special cases where you would drop a member or separator node on top of a node
+            // Does not work yet.
             /*
             if (node.Name.Equals("memberNode"))
             {
@@ -72,7 +73,7 @@ namespace Test2
                 UMLClassNode targetNode = (UMLClassNode)dropTarget;
 
 
-                Button bt = null;
+                Button bt = targetNode.GetBtn();
                 //targetNode.ApplyTemplate();
                 //Button bt = (Button)targetNode.FindResource("BtAddMember");
 

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="UmlClassResourceDictionary"
+    x:Class="test2.UmlClassNode"
     x:ClassModifier="public"
 	xmlns:local="clr-namespace:Test2">
 
@@ -51,8 +51,9 @@
                                             x:Name="BtAddMember"
                                             Background="White"
                                             Foreground="Black"
-                                            Padding="5,5,5,5">
-
+                                            Padding="5,5,5,5"
+                                            >
+                                            
                                     </Button>
                                 </Border>
                             </Grid>
