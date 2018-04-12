@@ -389,11 +389,12 @@
         </GroupBox>
         <!-- Overview-->
         <GroupBox Header="Overview" Style="{StaticResource ToolbarGroup}" Margin="3">
-            <Grid>
+            <Grid Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <mfd:Overview x:Name="overview" Document="{Binding ElementName=Test2:MainWindow.diagram}" DimBrush="Transparent" Width="auto"/>
+                <mfd:Overview x:Name="overview" Document="{Binding ElementName=test2:MainWindow.diagram}" 
+                              DimBrush="Transparent" Width="auto" Background="White"/>
             </Grid>
             
         </GroupBox>

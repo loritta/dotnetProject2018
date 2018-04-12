@@ -62,9 +62,13 @@
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left" 
                     Drop="diagram_Drop"
-                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}">
+                    DefaultShape="{Binding SelectedItem.Shape, ElementName=shapeList}"
+                                  x:FieldModifier="public">
+                    
                     </diag:Diagram>
+                    
                 </diag:Ruler>
+                
             </GroupBox>
             <!--Zoom control-->
             <mfc:ZoomControl
@@ -80,6 +84,7 @@
 			Panel.ZIndex="1"
 			Margin="44,39,0,0">
             </mfc:ZoomControl>
+
         </Grid>
 
     </Grid>

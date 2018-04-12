@@ -68,7 +68,7 @@ namespace Test2
             // event when you add a new member via button
             AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
 
-            Loaded += new RoutedEventHandler(Node_Loaded);
+            //Loaded += new RoutedEventHandler(Node_Loaded);
 
             ClassName = ClassNamePlaceholder;
             Text = TextPlaceholder;
@@ -83,22 +83,6 @@ namespace Test2
 
         }
 
-        private childItem FindVisualChild<childItem>(DependencyObject obj) where childItem : DependencyObject
-        {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-                if (child != null && child is childItem)
-                    return (childItem)child;
-                else
-                {
-                    childItem childOfChild = FindVisualChild<childItem>(child);
-                    if (childOfChild != null)
-                        return childOfChild;
-                }
-            }
-            return null;
-        }
 
 
         // "Add Member" clicked
