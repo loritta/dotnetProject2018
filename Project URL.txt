@@ -1,0 +1,6 @@
+Git:
+https://github.com/loritta/dotnetProject2018
+Trello:
+https://trello.com/b/qngsumIs/dotnetproject
+Team members:
+Chris and Larisa
